@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:trip_assistant/features/user/views/Login/login.dart';
+import 'package:trip_assistant/features/user/views/SignUp/signup.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({super.key, required this.title});
@@ -13,11 +15,21 @@ class StartPage extends StatefulWidget {
 class _StartPageState extends State<StartPage> {
 
   void _navigateSignIn(){
-    Navigator.pushNamed(context, '/signin');
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+        builder: (context) => const LoginPage(title: 'Sign In'),
+      ),
+    );
   }
 
   void _navigateSignUp(){
-    Navigator.pushNamed(context, '/signup');
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+        builder: (context) => const SignUpPage(title: 'Sign Up'),
+      ),
+    );
   }
 
   @override

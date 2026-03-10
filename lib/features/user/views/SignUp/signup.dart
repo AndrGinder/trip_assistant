@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trip_assistant/features/user/views/Login/login.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key, required this.title});
@@ -12,6 +13,15 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
 
+  void _navigateSignIn(){
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+        builder: (context) => const LoginPage(title: 'Sign In'),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +34,7 @@ class _SignUpPageState extends State<SignUpPage> {
           children: [
             Text(
               'Sign up',
+              textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineLarge,
             ),
             const SizedBox(height: 10),
@@ -78,6 +89,9 @@ class _SignUpPageState extends State<SignUpPage> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Processing Data')),
                         );
+                      }
+                      else {
+                        _navigateSignIn();
                       }
                     },
                     child: Text('Sign up')

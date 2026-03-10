@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trip_assistant/features/trip/views/TripsPage/tripspage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.title});
@@ -20,10 +21,10 @@ class _LoginPageState extends State<LoginPage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: .center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Sign up',
+              'Sign in',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
             const SizedBox(height: 10),
@@ -57,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                       )
                     ],
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
@@ -65,8 +66,16 @@ class _LoginPageState extends State<LoginPage> {
                           const SnackBar(content: Text('Processing Data')),
                         );
                       }
+                      else{
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (context) => const TripsPage(title: 'My Trips'),
+                          ),
+                        );
+                      }
                     }, 
-                    child: Text('Sign up')
+                    child: Text('Sign in')
                   ),
                 ]
               ),
