@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:trip_assistant/features/user/views/Login/login.dart';
+import 'package:trip_assistant/features/user/views/SignUp/signup.dart';
 import 'package:trip_assistant/features/user/views/StartPage/startpage.dart';
 import 'package:trip_assistant/utils/theme/theme.dart';
 
@@ -16,7 +18,12 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: TripAssistantTheme.light,
       darkTheme: TripAssistantTheme.dark,
-      home: const StartPage(title: 'Trip Assistant'),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const StartPage(title: "Trip Assistant"),
+        '/signin': (context) => const LoginPage(title: 'Sign in'),
+        '/signup': (context) => const SignUpPage(title: 'Sign up'),
+      },
     );
   }
 }
