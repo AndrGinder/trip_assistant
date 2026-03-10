@@ -8,17 +8,21 @@ class TripAssistantAppBarTheme{
       elevation: 0,
       centerTitle: false,
       scrolledUnderElevation: 0,
-      backgroundColor: Colors.transparent,
-      surfaceTintColor: Colors.transparent,
+      backgroundColor: Colors.blueGrey,
+      surfaceTintColor: Colors.white,
       iconTheme: IconThemeData(
-        color: Colors.blueGrey, 
+        color: Colors.white, 
         size: 24
       ),
       actionsIconTheme: IconThemeData(
-        color: Colors.blueGrey, 
+        color: Colors.white, 
         size: 24
       ),
-      titleTextStyle: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600, color: Colors.blueGrey),
+      titleTextStyle: TextStyle(
+        fontSize: 18.0, 
+        fontWeight: FontWeight.w600, 
+        color: Colors.white
+      ),
     );
 
   static AppBarTheme dark
@@ -26,8 +30,8 @@ class TripAssistantAppBarTheme{
       elevation: 0,
       centerTitle: false,
       scrolledUnderElevation: 0,
-      backgroundColor: Colors.transparent,
-      surfaceTintColor: Colors.transparent,
+      backgroundColor: Colors.blueGrey,
+      surfaceTintColor: Colors.white,
       iconTheme: IconThemeData(
         color: Colors.white, 
         size: 24
@@ -36,6 +40,10 @@ class TripAssistantAppBarTheme{
         color: Colors.white, 
         size: 24
       ),
-      titleTextStyle: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600, color: Colors.white),
+      titleTextStyle: TextStyle(
+        fontSize: 18.0, 
+        fontWeight: FontWeight.w600, 
+        color: Colors.white
+      ),
     );
 }

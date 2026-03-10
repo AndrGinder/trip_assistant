@@ -46,5 +46,5 @@ flutter:
         weight: 600
       - asset: assets/fonts/Roboto-Bold.ttf
         weight: 700
-      - asset: assets/fonts/Roboto-UltraBold.ttf
+      - asset: assets/fonts/Roboto-ExtraBold.ttf
         weight: 800

@@ -4,6 +4,7 @@ import 'package:trip_assistant/utils/theme/customthemes/bottomsheettheme.dart';
 import 'package:trip_assistant/utils/theme/customthemes/checkboxtheme.dart';
 import 'package:trip_assistant/utils/theme/customthemes/chiptheme.dart';
 import 'package:trip_assistant/utils/theme/customthemes/elevatedbuttontheme.dart';
+import 'package:trip_assistant/utils/theme/customthemes/floatingactionbuttontheme%20copy.dart';
 import 'package:trip_assistant/utils/theme/customthemes/inputdecorationtheme.dart';
 import 'package:trip_assistant/utils/theme/customthemes/outlinedbuttontheme.dart';
 import 'package:trip_assistant/utils/theme/customthemes/texttheme.dart';
@@ -25,6 +26,7 @@ class TripAssistantTheme {
     chipTheme: TripAssistantChipTheme.light,
     inputDecorationTheme: TripAssistantInputDecorationTheme.light,
     outlinedButtonTheme: TripAssistantOutlinedButtonTheme.light,
+    floatingActionButtonTheme: TripAssistantFloatingActionButtonTheme.light,
   );
 
   static ThemeData dark = ThemeData(
@@ -33,13 +35,14 @@ class TripAssistantTheme {
     brightness: Brightness.light,
     primaryColor: Colors.white,
     scaffoldBackgroundColor: Colors.black,
-    textTheme: TripAssistantTextTheme.light,
-    elevatedButtonTheme: TripAssistantElevatedButtonTheme.light,
-    appBarTheme: TripAssistantAppBarTheme.light,
-    bottomSheetTheme: TripAssistantBootomSheetTheme.light,
-    checkboxTheme: TripAssistantCheckboxTheme.light,
-    chipTheme: TripAssistantChipTheme.light,
-    inputDecorationTheme: TripAssistantInputDecorationTheme.light,
-    outlinedButtonTheme: TripAssistantOutlinedButtonTheme.light,
+    textTheme: TripAssistantTextTheme.dark,
+    elevatedButtonTheme: TripAssistantElevatedButtonTheme.dark,
+    appBarTheme: TripAssistantAppBarTheme.dark,
+    bottomSheetTheme: TripAssistantBootomSheetTheme.dark,
+    checkboxTheme: TripAssistantCheckboxTheme.dark,
+    chipTheme: TripAssistantChipTheme.dark,
+    inputDecorationTheme: TripAssistantInputDecorationTheme.dark,
+    outlinedButtonTheme: TripAssistantOutlinedButtonTheme.dark,
+    floatingActionButtonTheme: TripAssistantFloatingActionButtonTheme.dark,
   );
 }

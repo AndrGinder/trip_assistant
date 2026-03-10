@@ -31,7 +31,7 @@ class TripAssistantElevatedButtonTheme{
         disabledForegroundColor: Colors.grey,
         disabledBackgroundColor: Colors.grey,
         side: const BorderSide(color: Colors.white),
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         textStyle: const TextStyle(
           fontSize: 16, 
           color: Colors.blueGrey, 
