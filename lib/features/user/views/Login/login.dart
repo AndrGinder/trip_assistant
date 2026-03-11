@@ -11,7 +11,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
+
+  void _navigateMyTrips(){
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+        builder: (context) => const TripsPage(title: 'My Trips'),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,63 +28,76 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(
+          vertical: 50, 
+          horizontal: 25
+        ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               'Sign in',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
+            Text(
+              'Fill an sign in form',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 25),
             Form(
               child: Column(
                 children: [
-                  Row(
-                  children: [
-                      Text('Email'),
-                      TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Email is required';
-                          }
-                          return null;
-                        },
-                      )
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                  children: [
-                      Text('Password'),
-                      TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Password is required';
-                          }
-                          return null;
-                        },
-                      )
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Processing Data')),
-                        );
-                      }
-                      else{
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (context) => const TripsPage(title: 'My Trips'),
+                  Padding(
+                    padding: EdgeInsetsGeometry.symmetric(
+                      vertical: 5, 
+                      horizontal: 10
+                    ),
+                    child: TextFormField(
+                          decoration: InputDecoration(
+                            border: UnderlineInputBorder(),
+                            labelText: 'Full name',
                           ),
-                        );
-                      }
-                    }, 
-                    child: Text('Sign in')
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Full name is required';
+                            }
+                            return null;
+                          },
+                        ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsGeometry.symmetric(vertical: 5, horizontal: 10),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'Email',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Email is required';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // if (_formKey.currentState!.validate()) {
+                        //   ScaffoldMessenger.of(context).showSnackBar(
+                        //     const SnackBar(content: Text('Processing Data')),
+                        //   );
+                        // }
+                        // else{
+                        _navigateMyTrips();
+                        // }
+                      }, 
+                      child: Text('Sign in')
+                    ),
                   ),
                 ]
               ),

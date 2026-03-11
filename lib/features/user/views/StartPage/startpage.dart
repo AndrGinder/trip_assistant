@@ -38,7 +38,11 @@ class _StartPageState extends State<StartPage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(
+          horizontal: 25,
+          vertical: 50,
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
