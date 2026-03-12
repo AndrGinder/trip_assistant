@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:trip_assistant/features/trip/views/TripsPage/tripspage.dart';
+import 'package:trip_assistant/features/trip/views/Trip/trippage.dart';
 
 class SubmitTripItemPage extends StatefulWidget {
-  const SubmitTripItemPage({super.key, required this.title});
-
-  //id of trip item
-
+  final String id;
   final String title;
+  final String tripId;
+
+  const SubmitTripItemPage({
+    super.key, 
+    required this.id, 
+    required this.title,
+    required this.tripId
+  });
 
   @override
   State<SubmitTripItemPage> createState() => _SubmitTripItemPageState();
 }
 
 class _SubmitTripItemPageState extends State<SubmitTripItemPage> {
-  //if
-
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +46,8 @@ class _SubmitTripItemPageState extends State<SubmitTripItemPage> {
                 children: [
                   Padding(
                     padding: EdgeInsetsGeometry.symmetric(vertical: 5, horizontal: 10),
-                    child: TextFormField(
+                    child: Image(
+                      // image: AssetImage('assets/images/validation.png'),
                           decoration: InputDecoration(
                             border: UnderlineInputBorder(),
                             labelText: 'Destination',
@@ -91,21 +95,16 @@ class _SubmitTripItemPageState extends State<SubmitTripItemPage> {
 
                       //edit selected trip
 
-                      if (_formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Processing Data')),
-                        );
-                      }
-                      else{
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (context) => const TripsPage(title: 'My Trips'),
-                          ),
-                        );
-                      }
+                      // if (_formKey.currentState!.validate()) {
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //     const SnackBar(content: Text('Processing Data')),
+                      //   );
+                      // }
+                      // else{
+                        
+                      // }
                     }, 
-                    child: Text('Sign in')
+                    child: Text('Submit')
                   ),
                 ]
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trip_assistant/features/trip/views/SubmitItem/submititempage.dart';
 import 'package:trip_assistant/utils/constants/models.dart';
 import 'package:trip_assistant/utils/constants/trip.dart';
 
@@ -25,6 +26,19 @@ class _TripPageState extends State<TripPage> {
     TripItem(title: "Clothes", tripId: "1"),
     TripItem(title: "Shoes", tripId: "1"),
   ];
+
+  void _navigateItemSubmission(TripItem item){
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+        builder: (context) => SubmitTripItemPage(
+          title: item.title, 
+          id: item.id,
+          tripId: item.tripId,
+        ),
+      ),
+    );
+  }
 
   // void _getTripItems(){
   //   setState(() {
