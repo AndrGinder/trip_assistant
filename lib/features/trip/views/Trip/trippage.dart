@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class TripPage extends StatefulWidget {
   //include id of a selected trip
-  const TripPage({super.key, required this.title});
+  const TripPage({super.key, required this.id, required this.title});
 
+  final String id;
   final String title;
-  //include id of a selected trip
 
   @override
   State<TripPage> createState() => _TripPageState();

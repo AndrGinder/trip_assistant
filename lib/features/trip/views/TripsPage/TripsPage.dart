@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:trip_assistant/features/trip/views/TripsPage/tripcard.dart';
+import 'package:trip_assistant/utils/constants/grid.dart';
+import 'package:trip_assistant/utils/constants/trip.dart';
 
 class TripsPage extends StatefulWidget {
   const TripsPage({super.key, required this.title});
@@ -11,27 +14,28 @@ class TripsPage extends StatefulWidget {
 
 class _TripsPageState extends State<TripsPage> {
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: .center,
-          children: [
-            
-            
-            //grid with trips
-            //on pressed trip navigate to trip page
-
-            //on floating action button pressed it navigates to add trip page
-
-            //on item toggle show on screen delete area when to toggle
-          ],
+      body: GridView.builder(
+        padding: EdgeInsets.all(5),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: MobileGrid.cols,
+          crossAxisSpacing: 5,
+          mainAxisSpacing: 10
         ),
+        itemCount: myTrips.length,
+        itemBuilder: (context, index){
+          final trip = myTrips[index];
+
+          return TripCard(
+            id: trip.id,
+            title: trip.title,
+          );
+        }
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){},

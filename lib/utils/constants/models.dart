@@ -1,22 +1,19 @@
-import 'package:trip_assistant/utils/constants/constants.dart';
+import 'package:trip_assistant/utils/constants/trip.dart';
 import 'package:uuid/uuid.dart';
 
 const uuid = Uuid();
 
 class Trip{
-  String? id;
+  String id = uuid.v4();
   String title;
 
   Trip({
     required this.title
-  })
-  {
-    id = id ?? uuid.v4(); 
-  }
+  });
 }
 
 class TripCondition{
-  String? id;
+  String? id = uuid.v4();
   String title;
   TripConditionType type;
   int tripId;
@@ -25,10 +22,7 @@ class TripCondition{
     required this.title, 
     required this.type, 
     required this.tripId
-  })
-  {
-    id = id ?? uuid.v4(); 
-  }
+  });
 }
 
 class TripItem{
