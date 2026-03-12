@@ -29,7 +29,7 @@ class TripItem{
   String id = uuid.v4();
   String title;
   // Image? screen;
-  int tripId;
+  String tripId;
   TripThingState state = TripThingState.unchecked;
 
   TripItem({
