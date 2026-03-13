@@ -17,6 +17,7 @@ class TripCard extends StatelessWidget {
       MaterialPageRoute<void>(
         builder: (context) => TripPage(
           id: id, 
+          conditionsId: "1",
           title: title
         ),
       ),

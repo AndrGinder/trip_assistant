@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trip_assistant/features/trip/views/EditTrip/edittrippage.dart';
 import 'package:trip_assistant/features/trip/views/Trip/trippage.dart';
 
 class SubmitTripItemPage extends StatefulWidget {
@@ -24,87 +25,40 @@ class _SubmitTripItemPageState extends State<SubmitTripItemPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: .center,
           children: [
-            Text(
-              'Edit Trip',
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'Give basic conditions of your trip',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 10),
+            // Text(
+            //   'Edit Trip',
+            //   style: Theme.of(context).textTheme.headlineLarge,
+            // ),
+            // const SizedBox(height: 10),
+            // Text(
+            //   'Give basic conditions of your trip',
+            //   style: Theme.of(context).textTheme.headlineMedium,
+            // ),
+            // const SizedBox(height: 10),
             Form(
               child: Column(
                 children: [
                   Padding(
                     padding: EdgeInsetsGeometry.symmetric(vertical: 5, horizontal: 10),
-                    child: Image(
-                      // image: AssetImage('assets/images/validation.png'),
-                          decoration: InputDecoration(
-                            border: UnderlineInputBorder(),
-                            labelText: 'Destination',
-                          ),
-                          // validator: (value) {
-                          //   if (value == null || value.isEmpty) {
-                          //     return 'Full name is required';
-                          //   }
-                          //   return null;
-                          // },
-                        ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsGeometry.symmetric(vertical: 5, horizontal: 10),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'Weather',
-                      ),
-                      // validator: (value) {
-                      //   if (value == null || value.isEmpty) {
-                      //     return 'Email is required';
-                      //   }
-                      //   return null;
-                      // },
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsGeometry.symmetric(vertical: 5, horizontal: 10),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'Use additional things?',
-                      ),
-                      // validator: (value) {
-                      //   if (value == null || value.isEmpty) {
-                      //     return 'Email is required';
-                      //   }
-                      //   return null;
-                      // },
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-
-                      //edit selected trip
-
-                      // if (_formKey.currentState!.validate()) {
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //     const SnackBar(content: Text('Processing Data')),
-                      //   );
-                      // }
-                      // else{
-                        
-                      // }
-                    }, 
-                    child: Text('Submit')
+                    // child: Image(
+                    //   // image: AssetImage('assets/images/validation.png'),
+                    //       decoration: InputDecoration(
+                    //         border: UnderlineInputBorder(),
+                    //         labelText: 'Destination',
+                    //       ),
+                    //       // validator: (value) {
+                    //       //   if (value == null || value.isEmpty) {
+                    //       //     return 'Full name is required';
+                    //       //   }
+                    //       //   return null;
+                    //       // },
+                    //     ),
                   ),
                 ]
               ),
@@ -120,11 +74,22 @@ class _SubmitTripItemPageState extends State<SubmitTripItemPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
+          // Navigator.pushAndRemoveUntil(context, newRoute, predicate)
+          Navigator.push(
+            context,
+            MaterialPageRoute<void>(
+              builder: (context) => TripPage(
+                id: widget.tripId,
+                title: widget.title,
+                conditionsId: "1",
+              ),
+            ),
+          );
           // if app gets and save an validation image
           // then submits selected trip item
           // and navigates to trip page
         },
-        tooltip: 'Check item',
+        tooltip: 'Submit Item',
         child: const Icon(Icons.check),
       ),
     );

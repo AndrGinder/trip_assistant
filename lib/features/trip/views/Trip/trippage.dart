@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:trip_assistant/features/trip/views/EditTrip/edittrippage.dart';
 import 'package:trip_assistant/features/trip/views/SubmitItem/submititempage.dart';
 import 'package:trip_assistant/utils/constants/models.dart';
 import 'package:trip_assistant/utils/constants/trip.dart';
 
 class TripPage extends StatefulWidget {
-  const TripPage({super.key, required this.id, required this.title});
+  const TripPage({
+    super.key,
+    required this.id, 
+    required this.conditionsId, 
+    required this.title
+  });
 
   final String id;
+  final String conditionsId;
   final String title;
 
   @override
@@ -27,14 +34,33 @@ class _TripPageState extends State<TripPage> {
     TripItem(title: "Shoes", tripId: "1"),
   ];
 
-  void _navigateItemSubmission(TripItem item){
+  void _navigateEditTripPage()
+  {
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+        builder: (context) => EditTripPage(
+          title: widget.title,
+          id: widget.id,
+          tripConditionsId: widget.conditionsId,
+        ),
+      ),
+    );
+  }
+
+  void _navigateItemSubmission({
+    required String id, 
+    required String title, 
+    required String tripId
+  })
+  {
     Navigator.push(
       context,
       MaterialPageRoute<void>(
         builder: (context) => SubmitTripItemPage(
-          title: item.title, 
-          id: item.id,
-          tripId: item.tripId,
+          title: title, 
+          id: id,
+          tripId: tripId,
         ),
       ),
     );
@@ -64,21 +90,28 @@ class _TripPageState extends State<TripPage> {
               TripThingState.excluded => Icon(Icons.block),
             },
             onTap: (){
-              _navigateItemSubmission(item);
+              _navigateItemSubmission(
+                id: item.id, 
+                title: item.title, 
+                tripId: item.tripId
+              );
             },
           );
         },
       ),
-            // else if some of items check they get checked (became less attractive and moves to end of list)
+      
+      // else if some of items check they get checked (became less attractive and moves to end of list)
 
-            //show preffered checked/unchecked items list
-            //for every item show check/recheck evaluated button
-            //if item is checked then show uncheck button
+      //show preffered checked/unchecked items list
+      //for every item show check/recheck evaluated button
+      //if item is checked then show uncheck button
 
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
-        tooltip: 'Add new Trip',
-        child: const Icon(Icons.add),
+        onPressed: (){
+          _navigateEditTripPage();
+        },
+        tooltip: widget.title,
+        child: Icon(Icons.edit),
       ),
     );
   }

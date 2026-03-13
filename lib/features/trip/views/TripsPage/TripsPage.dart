@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trip_assistant/features/trip/views/AddTrip/addtrippage.dart';
 import 'package:trip_assistant/features/trip/views/TripsPage/tripcard.dart';
 import 'package:trip_assistant/utils/constants/grid.dart';
 import 'package:trip_assistant/utils/constants/trip.dart';
@@ -13,6 +14,14 @@ class TripsPage extends StatefulWidget {
 }
 
 class _TripsPageState extends State<TripsPage> {
+  void _navigateToTripsPage(){
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+        builder: (context) => AddTripPage(title: 'Add new Trip'),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +47,9 @@ class _TripsPageState extends State<TripsPage> {
         }
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: (){
+          _navigateToTripsPage();
+        },
         tooltip: 'Add new Trip',
         child: const Icon(Icons.add),
       ),
