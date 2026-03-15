@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trip_assistant/features/trip/views/TripsPage/tripspage.dart';
+import 'package:trip_assistant/common/widgets/navigation.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.title});
@@ -12,15 +12,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   // final _formKey = GlobalKey<FormState>();
-
-  void _navigateMyTrips(){
-    Navigator.push(
-      context,
-      MaterialPageRoute<void>(
-        builder: (context) => const TripsPage(title: 'My Trips'),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                         //   );
                         // }
                         // else{
-                        _navigateMyTrips();
+                        NavigationUtils.navigateToUserTrips(context);
                         // }
                       }, 
                       child: Text('Sign in')

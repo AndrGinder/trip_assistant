@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:trip_assistant/features/trip/views/EditTrip/edittrippage.dart';
-import 'package:trip_assistant/features/trip/views/SubmitItem/submititempage.dart';
 import 'package:trip_assistant/utils/constants/models.dart';
 import 'package:trip_assistant/utils/constants/trip.dart';
+import 'package:trip_assistant/common/widgets/navigation.dart';
 
 class TripPage extends StatefulWidget {
   const TripPage({
@@ -34,40 +33,6 @@ class _TripPageState extends State<TripPage> {
     TripItem(title: "Shoes", tripId: "1"),
   ];
 
-  void _navigateEditTripPage()
-  {
-    Navigator.push(
-      context,
-      MaterialPageRoute<void>(
-        builder: (context) => EditTripPage(
-          title: widget.title,
-          id: widget.id,
-          tripConditionsId: widget.conditionsId,
-
-        ),
-      ),
-    );
-  }
-
-  void _navigateItemSubmission({
-    required String id, 
-    required String title, 
-    required String tripId
-  })
-  {
-    Navigator.push(
-      context,
-      MaterialPageRoute<void>(
-        builder: (context) => SubmitTripItemPage(
-          title: title, 
-          id: id,
-          tripId: tripId,
-          previousTitle: widget.title
-        ),
-      ),
-    );
-  }
-
   // void _getTripItems(){
   //   setState(() {
   //     item.setState(TripThingState.checked);
@@ -91,13 +56,12 @@ class _TripPageState extends State<TripPage> {
               TripThingState.unchecked => Icon(Icons.check_box_outline_blank),
               TripThingState.excluded => Icon(Icons.block),
             },
-            onTap: (){
-              _navigateItemSubmission(
-                id: item.id, 
-                title: item.title, 
-                tripId: item.tripId
-              );
-            },
+            onTap: ()=> NavigationUtils.navigateToSubmitTripItemPage(
+              context,
+              id: item.id, 
+              title: item.title, 
+              tripId: item.tripId
+            ),
           );
         },
       ),
@@ -110,7 +74,12 @@ class _TripPageState extends State<TripPage> {
 
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          _navigateEditTripPage();
+          NavigationUtils.navigateToEditTripPage(
+            context, 
+            id: widget.id, 
+            title: widget.title, 
+            tripConditionsId: widget.conditionsId
+          );
         },
         tooltip: widget.title,
         child: Icon(Icons.edit),

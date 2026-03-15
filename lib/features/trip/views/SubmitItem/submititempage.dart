@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:trip_assistant/features/trip/views/Trip/trippage.dart';
+import 'package:trip_assistant/common/widgets/navigation.dart';
 
 class SubmitTripItemPage extends StatefulWidget {
   final String id;
   final String title;
   final String tripId;
-  final String previousTitle;
 
   const SubmitTripItemPage({
     super.key, 
     required this.id, 
     required this.title,
-    required this.tripId,
-    required this.previousTitle
+    required this.tripId
   });
 
   @override
@@ -21,19 +19,6 @@ class SubmitTripItemPage extends StatefulWidget {
 
 class _SubmitTripItemPageState extends State<SubmitTripItemPage> {
   // final _formKey = GlobalKey<FormState>();
-
-  void _navigateToTripPage(){
-    Navigator.push(
-      context,
-      MaterialPageRoute<void>(
-        builder: (context) => TripPage(
-          id: widget.tripId,
-          title: widget.previousTitle,
-          conditionsId: "1",
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +73,7 @@ class _SubmitTripItemPageState extends State<SubmitTripItemPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          _navigateToTripPage();
+          NavigationUtils.back(context);
           
           // if app gets and save an validation image
           // then submits selected trip item

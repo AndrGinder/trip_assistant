@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trip_assistant/features/user/views/Login/login.dart';
-import 'package:trip_assistant/features/user/views/SignUp/signup.dart';
+import 'package:trip_assistant/common/widgets/navigation.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({super.key, required this.title});
@@ -12,24 +11,6 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
-
-  void _navigateSignIn(){
-    Navigator.push(
-      context,
-      MaterialPageRoute<void>(
-        builder: (context) => const LoginPage(title: 'Sign In'),
-      ),
-    );
-  }
-
-  void _navigateSignUp(){
-    Navigator.push(
-      context,
-      MaterialPageRoute<void>(
-        builder: (context) => const SignUpPage(title: 'Sign Up'),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,11 +48,11 @@ class _StartPageState extends State<StartPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed: _navigateSignIn, 
+                  onPressed: () => NavigationUtils.navigateToSignInPage(context), 
                   child: Text('Sign in'),
                 ),
                 ElevatedButton(
-                  onPressed: _navigateSignUp, 
+                  onPressed: () => NavigationUtils.navigateToSignUpPage(context), 
                   child: Text('Sign up'),
                 )
               ]

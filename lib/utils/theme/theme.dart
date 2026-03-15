@@ -4,7 +4,7 @@ import 'package:trip_assistant/utils/theme/customthemes/bottomsheettheme.dart';
 import 'package:trip_assistant/utils/theme/customthemes/checkboxtheme.dart';
 import 'package:trip_assistant/utils/theme/customthemes/chiptheme.dart';
 import 'package:trip_assistant/utils/theme/customthemes/elevatedbuttontheme.dart';
-import 'package:trip_assistant/utils/theme/customthemes/floatingactionbuttontheme%20copy.dart';
+import 'package:trip_assistant/utils/theme/customthemes/floatingactionbuttontheme.dart';
 import 'package:trip_assistant/utils/theme/customthemes/inputdecorationtheme.dart';
 import 'package:trip_assistant/utils/theme/customthemes/outlinedbuttontheme.dart';
 import 'package:trip_assistant/utils/theme/customthemes/texttheme.dart';
