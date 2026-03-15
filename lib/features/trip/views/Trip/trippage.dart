@@ -43,6 +43,7 @@ class _TripPageState extends State<TripPage> {
           title: widget.title,
           id: widget.id,
           tripConditionsId: widget.conditionsId,
+
         ),
       ),
     );
@@ -61,6 +62,7 @@ class _TripPageState extends State<TripPage> {
           title: title, 
           id: id,
           tripId: tripId,
+          previousTitle: widget.title
         ),
       ),
     );

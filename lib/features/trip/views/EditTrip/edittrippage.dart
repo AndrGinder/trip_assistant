@@ -13,7 +13,7 @@ class EditTripPage extends StatefulWidget {
     super.key, 
     required this.id,
     required this.title,
-    required this.tripConditionsId
+    required this.tripConditionsId,
   });
 
   @override
