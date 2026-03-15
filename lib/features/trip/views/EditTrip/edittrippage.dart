@@ -57,9 +57,26 @@ class _EditTripPageState extends State<EditTripPage> {
                   Padding(
                     padding: EdgeInsetsGeometry.symmetric(vertical: 5, horizontal: 10),
                     child: TextFormField(
+                          decoration: InputDecoration(
+                            border: UnderlineInputBorder(),
+                            labelText: 'Description',
+                            hintText: 'Describe your trip in a few words',
+                          ),
+                          // validator: (value) {
+                          //   if (value == null || value.isEmpty) {
+                          //     return 'Description is required';
+                          //   }
+                          //   return null;
+                          // },
+                        ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsGeometry.symmetric(vertical: 5, horizontal: 10),
+                    child: TextFormField(
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: 'Destination',
+                            hintText: 'Where are you going?',
                       ),
                       // validator: (value) {
                       //   if (value == null || value.isEmpty) {
@@ -75,6 +92,7 @@ class _EditTripPageState extends State<EditTripPage> {
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: 'Purpose',
+                        hintText: 'What is the purpose of your trip?',
                       ),
                       // validator: (value) {
                       //   if (value == null || value.isEmpty) {
@@ -90,6 +108,7 @@ class _EditTripPageState extends State<EditTripPage> {
                       decoration: const InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: 'Weather',
+                        hintText: 'What is the expected weather during your trip?',
                       ),
                       // validator: (value) {
                       //   if (value == null || value.isEmpty) {

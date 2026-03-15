@@ -5,10 +5,10 @@ const uuid = Uuid();
 
 class Trip{
   String id = uuid.v4();
-  String title;
+  String description;
 
   Trip({
-    required this.title
+    required this.description
   });
 }
 
@@ -19,7 +19,7 @@ class TripCondition{
   int tripId;
 
   TripCondition({
-    required this.title, 
+    required this.title,
     required this.type, 
     required this.tripId
   });

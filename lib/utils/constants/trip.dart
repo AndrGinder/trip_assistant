@@ -1,13 +1,13 @@
 import 'package:trip_assistant/utils/constants/models.dart';
 
 var myTrips = <Trip>[
-  Trip(title: "Budapest B2B Conference"),
-  Trip(title: "Date with Angela at Marconi`s"),
-  Trip(title: "Buy new shoes"),
-  Trip(title: "Buy products"),
-  Trip(title: "Date with Angela at Marconi`s"),
-  Trip(title: "Wash car"),
-  Trip(title: "Daily meeting"),
+  Trip(description: "Budapest B2B Conference"),
+  Trip(description: "Date with Angela at Marconi`s"),
+  Trip(description: "Buy new shoes"),
+  Trip(description: "Buy products"),
+  Trip(description: "Date with Angela at Marconi`s"),
+  Trip(description: "Wash car"),
+  Trip(description: "Daily meeting"),
 ];
 
 enum Location{
