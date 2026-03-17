@@ -34,7 +34,7 @@ class _TripsPageState extends State<TripsPage> {
 
           return TripCard(
             id: trip.id,
-            description: trip.description,
+            name: trip.name,
           );
         }
       ),

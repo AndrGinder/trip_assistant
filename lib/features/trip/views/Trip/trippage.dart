@@ -4,16 +4,16 @@ import 'package:trip_assistant/utils/constants/trip.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
 
 class TripPage extends StatefulWidget {
+  final String id;
+  final String conditionsId;
+  final String name;
+
   const TripPage({
     super.key,
     required this.id, 
     required this.conditionsId, 
-    required this.title
+    required this.name
   });
-
-  final String id;
-  final String conditionsId;
-  final String title;
 
   @override
   State<TripPage> createState() => _TripPageState();
@@ -43,7 +43,7 @@ class _TripPageState extends State<TripPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.name),
       ),
       body: ListView.builder(
         itemCount: items.length,
@@ -52,14 +52,14 @@ class _TripPageState extends State<TripPage> {
           return ListTile(
             title: Text(item.title),
             trailing: switch(item.state) {
-              TripThingState.checked => Icon(Icons.check),
-              TripThingState.unchecked => Icon(Icons.check_box_outline_blank),
-              TripThingState.excluded => Icon(Icons.block),
+              TripItemState.checked => Icon(Icons.check),
+              TripItemState.unchecked => Icon(Icons.check_box_outline_blank),
+              TripItemState.excluded => Icon(Icons.block),
             },
             onTap: ()=> NavigationUtils.navigateToSubmitTripItemPage(
               context,
               id: item.id, 
-              title: item.title, 
+              name: item.title, 
               tripId: item.tripId
             ),
           );
@@ -77,11 +77,11 @@ class _TripPageState extends State<TripPage> {
           NavigationUtils.navigateToEditTripPage(
             context, 
             id: widget.id, 
-            title: widget.title, 
+            title: widget.name, 
             tripConditionsId: widget.conditionsId
           );
         },
-        tooltip: widget.title,
+        tooltip: widget.name,
         child: Icon(Icons.edit),
       ),
     );

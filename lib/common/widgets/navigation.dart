@@ -53,7 +53,7 @@ abstract class NavigationUtils {
       builder: (context) => TripPage(
         id: id, 
         conditionsId: conditionsId, 
-        title: title,
+        name: title,
       ),
     ),
   );
@@ -84,7 +84,7 @@ abstract class NavigationUtils {
 
   static void navigateToSubmitTripItemPage(BuildContext context, {
     required String id, 
-    required String title, 
+    required String name, 
     required String tripId
   })
   {
@@ -92,7 +92,7 @@ abstract class NavigationUtils {
       context,
       MaterialPageRoute<void>(
         builder: (context) => SubmitTripItemPage(
-          title: title, 
+          name: name, 
           id: id,
           tripId: tripId
         ),

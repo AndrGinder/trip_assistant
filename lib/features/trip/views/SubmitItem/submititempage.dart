@@ -3,13 +3,13 @@ import 'package:trip_assistant/common/widgets/navigation.dart';
 
 class SubmitTripItemPage extends StatefulWidget {
   final String id;
-  final String title;
+  final String name;
   final String tripId;
 
   const SubmitTripItemPage({
     super.key, 
     required this.id, 
-    required this.title,
+    required this.name,
     required this.tripId
   });
 
@@ -24,7 +24,7 @@ class _SubmitTripItemPageState extends State<SubmitTripItemPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.name),
       ),
       body: Center(
         child: Column(

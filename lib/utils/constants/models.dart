@@ -3,12 +3,27 @@ import 'package:uuid/uuid.dart';
 
 const uuid = Uuid();
 
+class User{
+  String id = uuid.v4();
+  String name;
+  String email;
+  String passwordHash;
+
+  User({
+    required this.name,
+    required this.email,
+    required this.passwordHash
+  });
+}
+
 class Trip{
   String id = uuid.v4();
-  String description;
+  String userId;
+  String name;
 
   Trip({
-    required this.description
+    required this.userId,
+    required this.name
   });
 }
 
@@ -30,7 +45,7 @@ class TripItem{
   String title;
   // Image? screen;
   String tripId;
-  TripThingState state = TripThingState.unchecked;
+  TripItemState state = TripItemState.unchecked;
 
   TripItem({
     required this.title, 
@@ -46,18 +61,18 @@ class TripItem{
     // }
   }
 
-  void setState(TripThingState value){
+  void setState(TripItemState value){
     state = value;
 
     // switch(action){
     //   case "Check":
-    //     state = TripThingState.checked;
+    //     state = TripItemState.checked;
     //     break;
     //   case "Exclude":
-    //     state = TripThingState.excluded;
+    //     state = TripItemState.excluded;
     //     break;
     //   default:
-    //     state = TripThingState.unchecked;
+    //     state = TripItemState.unchecked;
     // }
   }
 }

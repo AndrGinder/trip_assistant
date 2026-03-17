@@ -1,13 +1,13 @@
 import 'package:trip_assistant/utils/constants/models.dart';
 
 var myTrips = <Trip>[
-  Trip(description: "Budapest B2B Conference"),
-  Trip(description: "Date with Angela at Marconi`s"),
-  Trip(description: "Buy new shoes"),
-  Trip(description: "Buy products"),
-  Trip(description: "Date with Angela at Marconi`s"),
-  Trip(description: "Wash car"),
-  Trip(description: "Daily meeting"),
+  Trip(userId: "user1", name: "Budapest B2B Conference"),
+  Trip(userId: "user1", name: "Date with Angela at Marconi`s"),
+  Trip(userId: "user1", name: "Buy new shoes"),
+  Trip(userId: "user1", name: "Buy products"),
+  Trip(userId: "user1", name: "Date with Angela at Marconi`s"),
+  Trip(userId: "user1", name: "Wash car"),
+  Trip(userId: "user1", name: "Daily meeting"),
 ];
 
 enum Location{
@@ -46,7 +46,7 @@ enum TripConditionType{
   purpose,
 }
 
-enum TripThingState{
+enum TripItemState{
   unchecked,
   checked,
   excluded,
