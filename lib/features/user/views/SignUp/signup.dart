@@ -104,6 +104,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         //   );
                         // }
                         // else {
+                          NavigationUtils.back(context);
                           NavigationUtils.navigateToSignInPage(context);
                         // }
                       },
