@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:trip_assistant/common/styles/styles.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
 import 'package:trip_assistant/utils/constants/userform.dart';
 
@@ -23,8 +24,8 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(
-          vertical: 50, 
-          horizontal: 25
+          vertical: BlockProperties.largePadding, 
+          horizontal: BlockProperties.mediumPadding
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -34,7 +35,7 @@ class _SignUpPageState extends State<SignUpPage> {
               'Please sign up to continue',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            SizedBox(height: 25),
+            SizedBox(height: BlockProperties.mediumPadding),
             Form(
               key: _formKey,
               child: Column(
@@ -42,8 +43,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(
-                      vertical: 5, 
-                      horizontal: 10
+                      vertical: BlockProperties.thinPadding, 
+                      horizontal: BlockProperties.smallPadding
                     ),
                     child: TextFormField(
                         decoration: InputDecoration(
@@ -60,8 +61,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
-                      vertical: 5, 
-                      horizontal: 10
+                      vertical: BlockProperties.thinPadding, 
+                      horizontal: BlockProperties.smallPadding
                     ),
                     child: TextFormField(
                       decoration: InputDecoration(
@@ -81,8 +82,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
-                      vertical: 5, 
-                      horizontal: 10
+                      vertical: BlockProperties.thinPadding, 
+                      horizontal: BlockProperties.smallPadding
                     ),
                     child: TextFormField(
                       obscureText: true,
@@ -110,7 +111,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       },
                     ),
                   ),
-                  SizedBox(height: 5),
+                  SizedBox(height: BlockProperties.thinPadding),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -124,7 +125,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: BlockProperties.smallPadding),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(

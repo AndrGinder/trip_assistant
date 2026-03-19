@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:trip_assistant/common/styles/styles.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
 import 'package:trip_assistant/utils/constants/userform.dart';
 
@@ -23,8 +24,8 @@ class _LoginPageState extends State<LoginPage> {
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(
-          vertical: 50, 
-          horizontal: 25
+          vertical: BlockProperties.largePadding, 
+          horizontal: BlockProperties.mediumPadding
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -34,21 +35,21 @@ class _LoginPageState extends State<LoginPage> {
               'Welcome to Trip Assistant!\nYour personal travel companion.',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            SizedBox(height: 20),
+            SizedBox(height: BlockProperties.mediumPadding),
             Text(
               textAlign: TextAlign.center,
               'Please sign in to continue',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
-            SizedBox(height: 25),
+            SizedBox(height: BlockProperties.mediumPadding),
             Form(
               key: _formKey,
               child: Column(
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(
-                      vertical: 5, 
-                      horizontal: 10
+                      vertical: BlockProperties.thinPadding, 
+                      horizontal: BlockProperties.smallPadding
                     ),
                     child: TextFormField(
                       decoration: InputDecoration(
@@ -68,8 +69,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
-                      vertical: 5, 
-                      horizontal: 10
+                      vertical: BlockProperties.thinPadding, 
+                      horizontal: BlockProperties.smallPadding
                     ),
                     child: TextFormField(
                       obscureText: true,
@@ -95,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                       },
                     ),
                   ),
-                  SizedBox(height: 5),
+                  SizedBox(height: BlockProperties.thinPadding),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -109,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: BlockProperties.smallPadding),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trip_assistant/common/styles/styles.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
 
 class StartPage extends StatefulWidget {
@@ -20,8 +21,8 @@ class _StartPageState extends State<StartPage> {
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(
-          horizontal: 25,
-          vertical: 50,
+          horizontal: BlockProperties.mediumPadding,
+          vertical: BlockProperties.largePadding,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -31,19 +32,19 @@ class _StartPageState extends State<StartPage> {
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineLarge,
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: BlockProperties.smallPadding),
             Text(
               'Assistant helps you to prepare all needed things for any trip',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: BlockProperties.smallPadding),
             Text(
               'Do you have an account? Sign in',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: BlockProperties.smallPadding),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

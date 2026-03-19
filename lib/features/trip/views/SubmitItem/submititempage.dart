@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trip_assistant/common/styles/styles.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
 
 class SubmitTripItemPage extends StatefulWidget {
@@ -44,7 +45,10 @@ class _SubmitTripItemPageState extends State<SubmitTripItemPage> {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsetsGeometry.symmetric(vertical: 5, horizontal: 10),
+                    padding: EdgeInsetsGeometry.symmetric(
+                      vertical: BlockProperties.thinPadding, 
+                      horizontal: BlockProperties.smallPadding
+                    ),
                     // child: Image(
                     //   // image: AssetImage('assets/images/validation.png'),
                     //       decoration: InputDecoration(

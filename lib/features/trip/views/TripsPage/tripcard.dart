@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trip_assistant/common/styles/styles.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
 
 class TripCard extends StatelessWidget {
@@ -22,6 +23,24 @@ class TripCard extends StatelessWidget {
           id: id, 
           title: name, 
           conditionsId: "1"
+        ),
+      ),
+    );
+  }
+}
+
+class TripCardDrag extends StatelessWidget {
+  const TripCardDrag({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Opacity(
+        opacity: BlockProperties.opacity,
+        child: ListTile(
+          tileColor: Colors.blueGrey.shade100,
         ),
       ),
     );
