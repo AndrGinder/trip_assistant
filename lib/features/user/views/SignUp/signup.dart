@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -11,7 +12,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  // final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,30 +21,26 @@ class _SignUpPageState extends State<SignUpPage> {
         title: Text(widget.title),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 25),
+        padding: EdgeInsets.symmetric(
+          vertical: 50, 
+          horizontal: 25
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 50),
-            // Text("${_formKey.currentState}"),
             Text(
-              'Sign up',
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'Fill an sign up form',
-              textAlign: TextAlign.center,
+              'Please sign up to continue',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            const SizedBox(height: 25),
+            SizedBox(height: 25),
             Form(
+              key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Padding(
-                    padding: EdgeInsetsGeometry.symmetric(
+                    padding: EdgeInsets.symmetric(
                       vertical: 5, 
                       horizontal: 10
                     ),
@@ -53,7 +50,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           labelText: 'Full name',
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
+                          if (value == null || value.trim().isEmpty) {
                             return 'Full name is required';
                           }
                           return null;
@@ -61,7 +58,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                   ),
                   Padding(
-                    padding: EdgeInsetsGeometry.symmetric(
+                    padding: EdgeInsets.symmetric(
                       vertical: 5, 
                       horizontal: 10
                     ),
@@ -71,42 +68,73 @@ class _SignUpPageState extends State<SignUpPage> {
                         labelText: 'Email',
                       ),
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
+                        if (value == null || value.trim().isEmpty) {
                           return 'Email is required';
+                        }
+                        if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                          return 'Email is not valid';
                         }
                         return null;
                       },
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsGeometry.symmetric(vertical: 5, horizontal: 10),
+                    padding: EdgeInsets.symmetric(
+                      vertical: 5, 
+                      horizontal: 10
+                    ),
                     child: TextFormField(
+                      obscureText: true,
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: 'Password',
                       ),
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                          RegExp(r'[A-Za-z\d@$!%*?&._-]')
+                        ),
+                        LengthLimitingTextInputFormatter(32),
+                      ],
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
+                        if (value == null || value.trim().isEmpty) {
                           return 'Password is required';
+                        }
+                        if (value.length < 8) {
+                          return 'Password must be at least 8 characters long';
+                        }
+                        final passwordRegex = RegExp(
+                          r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&._-])[A-Za-z\d@$!%*?&._-]{8,}$'
+                        );
+                        if (!passwordRegex.hasMatch(value)) {
+                          return 'Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character';
                         }
                         return null;
                       },
                     ),
+                  ),
+                  SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Have an account? "),
+                      TextButton(
+                        onPressed: () {
+                          NavigationUtils.back(context);
+                          NavigationUtils.navigateToSignInPage(context);
+                        },
+                        child: const Text("Sign in"),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 10),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        // if (_formKey.currentState!.validate()) {
-                        //   ScaffoldMessenger.of(context).showSnackBar(
-                        //     const SnackBar(content: Text('Processing Data')),
-                        //   );
-                        // }
-                        // else {
+                        if (_formKey.currentState?.validate() ?? false) {
                           NavigationUtils.back(context);
                           NavigationUtils.navigateToSignInPage(context);
-                        // }
+                        }
                       },
                       child: Text('Sign up')
                     ),

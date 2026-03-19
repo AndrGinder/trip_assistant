@@ -19,7 +19,7 @@ class TripAssistantTextTheme{
         ),
       headlineSmall: TextStyle()
         .copyWith(
-          fontSize: 14,
+          fontSize: 16,
           fontWeight: FontWeight.w400,
           color: Colors.blueGrey
         ),
@@ -41,7 +41,7 @@ class TripAssistantTextTheme{
         ),
       headlineSmall: TextStyle()
         .copyWith(
-          fontSize: 14,
+          fontSize: 16,
           fontWeight: FontWeight.w400,
           color: Colors.white
         ),

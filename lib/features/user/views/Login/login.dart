@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
 
 class LoginPage extends StatefulWidget {
@@ -11,7 +12,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,64 +29,100 @@ class _LoginPageState extends State<LoginPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'Sign in',
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-            SizedBox(height: 10),
-            Text(
-              'Fill an sign in form',
+              textAlign: TextAlign.center,
+              'Welcome to Trip Assistant!\nYour personal travel companion.',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            const SizedBox(height: 25),
+            SizedBox(height: 20),
+            Text(
+              textAlign: TextAlign.center,
+              'Please sign in to continue',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            SizedBox(height: 25),
             Form(
+              key: _formKey,
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsetsGeometry.symmetric(
+                    padding: EdgeInsets.symmetric(
                       vertical: 5, 
                       horizontal: 10
                     ),
                     child: TextFormField(
-                          decoration: InputDecoration(
-                            border: UnderlineInputBorder(),
-                            labelText: 'Full name',
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Full name is required';
-                            }
-                            return null;
-                          },
-                        ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsGeometry.symmetric(vertical: 5, horizontal: 10),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: 'Email',
                       ),
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
+                        if (value == null || value.trim().isEmpty) {
                           return 'Email is required';
+                        }
+                        if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                          return 'Email is not valid';
                         }
                         return null;
                       },
                     ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 5, 
+                      horizontal: 10
+                    ),
+                    child: TextFormField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'Password',
+                      ),
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                          RegExp(r'[A-Za-z\d@$!%*?&._-]')
+                        ),
+                        LengthLimitingTextInputFormatter(32),
+                      ],
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Password is required';
+                        }
+                        if (value.length < 8) {
+                          return 'Password must be at least 8 characters long';
+                        }
+                        final passwordRegex = RegExp(
+                          r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&._-])[A-Za-z\d@$!%*?&._-]{8,}$'
+                        );
+                        if (!passwordRegex.hasMatch(value)) {
+                          return 'Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Don't have an account? "),
+                      TextButton(
+                        onPressed: () {
+                          NavigationUtils.back(context);
+                          NavigationUtils.navigateToSignUpPage(context);
+                        },
+                        child: const Text("Sign up"),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 10),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        // if (_formKey.currentState!.validate()) {
-                        //   ScaffoldMessenger.of(context).showSnackBar(
-                        //     const SnackBar(content: Text('Processing Data')),
-                        //   );
-                        // }
-                        // else{
-                        NavigationUtils.navigateToUserTrips(context);
-                        // }
+                        if (_formKey.currentState!.validate()) {
+                          NavigationUtils.navigateToUserTrips(context);
+                        }
+                        else{
+                        }
                       }, 
                       child: Text('Sign in')
                     ),

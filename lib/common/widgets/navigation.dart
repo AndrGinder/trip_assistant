@@ -9,12 +9,12 @@ import 'package:trip_assistant/features/user/views/SignUp/signup.dart';
 
 abstract class NavigationUtils {
   static void back(BuildContext context) => Navigator.pop(context);
-  
+
   static void navigateToSignInPage(BuildContext context)
     => Navigator.push(
     context,
     MaterialPageRoute<void>(
-      builder: (context) => const LoginPage(title: 'Sign In'),
+      builder: (context) => const LoginPage(title: 'Trip Assistant'),
     ),
   );
   
@@ -22,7 +22,7 @@ abstract class NavigationUtils {
     => Navigator.push(
     context,
     MaterialPageRoute<void>(
-      builder: (context) => const SignUpPage(title: 'Sign Up'),
+      builder: (context) => const SignUpPage(title: 'Trip Assistant'),
     ),
   );
 
