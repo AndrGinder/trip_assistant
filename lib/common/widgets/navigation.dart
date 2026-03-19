@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trip_assistant/features/trip/views/AddTrip/addtrippage.dart';
 import 'package:trip_assistant/features/trip/views/EditTrip/edittrippage.dart';
 import 'package:trip_assistant/features/trip/views/SubmitItem/submititempage.dart';
-import 'package:trip_assistant/features/trip/views/Trip/trippage.dart';
+import 'package:trip_assistant/features/trip/views/TripPage/trippage.dart';
 import 'package:trip_assistant/features/trip/views/TripsPage/tripspage.dart';
 import 'package:trip_assistant/features/user/views/Login/login.dart';
 import 'package:trip_assistant/features/user/views/SignUp/signup.dart';
