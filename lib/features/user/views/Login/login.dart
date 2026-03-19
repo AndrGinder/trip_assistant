@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
+import 'package:trip_assistant/utils/constants/userform.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.title});
@@ -52,14 +53,14 @@ class _LoginPageState extends State<LoginPage> {
                     child: TextFormField(
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
-                        labelText: 'Email',
+                        labelText: EmailUtils.label,
                       ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'Email is required';
+                          return EmailUtils.emptyError;
                         }
-                        if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                          return 'Email is not valid';
+                        if (!EmailUtils.regexValidator.hasMatch(value)) {
+                          return EmailUtils.matchError;
                         }
                         return null;
                       },
@@ -74,26 +75,21 @@ class _LoginPageState extends State<LoginPage> {
                       obscureText: true,
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
-                        labelText: 'Password',
+                        labelText: PasswordUtils.label,
                       ),
                       inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                          RegExp(r'[A-Za-z\d@$!%*?&._-]')
-                        ),
-                        LengthLimitingTextInputFormatter(32),
+                        FilteringTextInputFormatter.allow(PasswordUtils.regexFormatter),
+                        LengthLimitingTextInputFormatter(PasswordUtils.maxLength),
                       ],
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'Password is required';
+                          return PasswordUtils.emptyError;
                         }
-                        if (value.length < 8) {
-                          return 'Password must be at least 8 characters long';
+                        if (value.length < PasswordUtils.minLength) {
+                          return PasswordUtils.lengthError;
                         }
-                        final passwordRegex = RegExp(
-                          r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&._-])[A-Za-z\d@$!%*?&._-]{8,}$'
-                        );
-                        if (!passwordRegex.hasMatch(value)) {
-                          return 'Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character';
+                        if (!PasswordUtils.regexValidator.hasMatch(value)) {
+                          return PasswordUtils.matchError;
                         }
                         return null;
                       },
@@ -120,8 +116,6 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           NavigationUtils.navigateToUserTrips(context);
-                        }
-                        else{
                         }
                       }, 
                       child: Text('Sign in')
