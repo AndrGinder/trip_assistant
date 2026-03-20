@@ -10,5 +10,8 @@ abstract class BlockProperties{
   static double mediumPadding = 25;
   static double largePadding = 50;
   
-  static double opacity = .0;
+  static double fullOpacity = 1;
+  static double zeroOpacity = .0;
+
+  static double scale = 1.05;
 }

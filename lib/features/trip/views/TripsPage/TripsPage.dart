@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:trip_assistant/features/trip/controllers/trips_page_controller.dart';
+import 'package:trip_assistant/features/trip/servers/trip/delete_trip.dart';
 import 'package:trip_assistant/features/trip/servers/trip/filter_trips.dart';
 import 'package:trip_assistant/features/trip/views/TripsPage/tripcard.dart';
 import 'package:trip_assistant/common/styles/styles.dart';
 import 'package:trip_assistant/utils/constants/models.dart';
-import 'package:trip_assistant/utils/constants/trip.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
 
 class TripsPage extends StatefulWidget {
   final String title;
-  final TripsPageController controller 
-    = TripsPageController(
-      filterTrips: FilterTripsService(),
-    );
+
+  final TripsPageController controller = TripsPageController(
+    filterTripsService: FilterTripsService(),
+    deleteTripService: DeleteTripService(),
+  );
 
   TripsPage({
-    super.key, 
-    required this.title
+    super.key,
+    required this.title,
   });
 
   @override
@@ -51,89 +52,113 @@ class _TripsPageState extends State<TripsPage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Stack(
-        children: [
-          ListView.builder(
-            padding: EdgeInsets.all(BlockProperties.thinPadding),
-            itemCount: _trips.length,
-            itemBuilder: (context, index){
-              final trip = _trips[index];
 
-              return _isLoading 
-                ? const Center(child: CircularProgressIndicator())
-                : Draggable<Trip>(
-                data: trip, 
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Stack(
+              children: [
+                /// LIST
+                ListView.builder(
+                  padding: EdgeInsets.all(BlockProperties.thinPadding),
+                  itemCount: _trips.length,
+                  itemBuilder: (context, index) {
+                    final trip = _trips[index];
 
-                onDragStarted: () { 
-                  HapticFeedback.lightImpact();
-                  _isDragging = true; 
-                },
-                onDraggableCanceled: (_, _) => _isDragging = false,
-                onDragEnd: (_) => _isDragging = false,
+                    return LongPressDraggable<Trip>(
+                      data: trip,
 
-                feedback: Material(
-                  elevation: 12,
-                  color: Colors.transparent,
-                  child: Transform.scale(
-                    scale: 1.05,
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
+                      dragAnchorStrategy: pointerDragAnchorStrategy,
+
+                      onDragStarted: () {
+                        HapticFeedback.lightImpact();
+                        setState(() => _isDragging = true);
+                      },
+                      onDraggableCanceled: (_, __) {
+                        setState(() => _isDragging = false);
+                      },
+                      onDragEnd: (_) {
+                        setState(() => _isDragging = false);
+                      },
+
+                      /// FLOATING CARD
+                      feedback: Material(
+                        elevation: 12,
+                        color: Colors.transparent,
+                        child: Transform.scale(
+                          scale: BlockProperties.scale,
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: TripCard(
+                              id: trip.id,
+                              name: trip.name,
+                              isFeedback: true,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      /// ORIGINAL PLACEHOLDER
+                      childWhenDragging: TripCard(
+                        id: trip.id,
+                        name: trip.name,
+                        isDragging: true,
+                      ),
+
+                      /// NORMAL CARD
                       child: TripCard(
                         id: trip.id,
                         name: trip.name,
                       ),
+                    );
+                  },
+                ),
+
+                /// DELETE AREA
+                if (_isDragging)
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: DragTarget<Trip>(
+                      onAcceptWithDetails: (details) {
+                        final trip = details.data;
+
+                        setState(() {
+                          _trips.removeWhere((t) => t.id == trip.id);
+                          _isDragging = false;
+                        });
+                      },
+                      builder: (context, candidateData, rejectedData) {
+                        final isActive = candidateData.isNotEmpty;
+
+                        return AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          height: 80,
+                          width: double.infinity,
+                          margin: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: isActive
+                                ? Colors.redAccent
+                                : Colors.blueGrey,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Center(
+                            child: Icon(
+                              isActive
+                                  ? Icons.delete_forever
+                                  : Icons.delete_outline,
+                              color: Colors.white,
+                              size: 32,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
-                ),
-
-                childWhenDragging: Opacity(
-                  opacity: .0,
-                  child: TripCard(
-                    id: trip.id, 
-                    name: trip.name
-                  ),
-                ),
-
-                child: TripCard(
-                  id: trip.id,
-                  name: trip.name,
-                ),
-              );
-            }
-          ),
-
-          if (_isDragging)
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: DragTarget<Trip>(
-                onAcceptWithDetails: (details) {
-                  final trip = details.data;
-                  trips.removeWhere((t) => t.id == trip.id);
-
-                  _isDragging = false;
-                },
-                builder: (context, candidateData, rejectedData) => AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  height: 50,
-                  width: 50,
-                  margin: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: Colors.blueGrey,
-                  ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.delete,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              )
+              ],
             ),
-        ]
-      ),
+
       floatingActionButton: FloatingActionButton(
-        onPressed: () => NavigationUtils.navigateToAddTripPage(context),
+        onPressed: () =>
+            NavigationUtils.navigateToAddTripPage(context),
         tooltip: 'Add new Trip',
         child: const Icon(Icons.add),
       ),
