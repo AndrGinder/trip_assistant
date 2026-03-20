@@ -2,7 +2,7 @@ import 'package:trip_assistant/features/trip/repositories/trip/i_filter_trips.da
 import 'package:trip_assistant/utils/constants/models.dart';
 import 'package:trip_assistant/utils/constants/trip.dart';
 
-class FilterTrip implements IFilterTrips {
+class FilterTripsService implements IFilterTrips {
   @override
   Future<List<Trip>> filterTrips() async {
   //   required String userId

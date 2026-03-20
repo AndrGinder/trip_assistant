@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:trip_assistant/features/trip/controllers/trips_page_controller.dart';
+import 'package:trip_assistant/features/trip/servers/trip/filter_trips.dart';
 import 'package:trip_assistant/features/trip/views/TripsPage/tripcard.dart';
 import 'package:trip_assistant/common/styles/styles.dart';
 import 'package:trip_assistant/utils/constants/models.dart';
@@ -7,9 +9,16 @@ import 'package:trip_assistant/utils/constants/trip.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
 
 class TripsPage extends StatefulWidget {
-  const TripsPage({super.key, required this.title});
-
   final String title;
+  final TripsPageController controller 
+    = TripsPageController(
+      filterTrips: FilterTripsService(),
+    );
+
+  TripsPage({
+    super.key, 
+    required this.title
+  });
 
   @override
   State<TripsPage> createState() => _TripsPageState();
@@ -17,8 +26,24 @@ class TripsPage extends StatefulWidget {
 
 class _TripsPageState extends State<TripsPage> {
   bool _isDragging = false;
-  List<Trip> myTrips = trips;
-  // .where(test);
+
+  List<Trip> _trips = [];
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadTrips();
+  }
+
+  Future<void> _loadTrips() async {
+    final data = await widget.controller.tripsPage();
+
+    setState(() {
+      _trips = data;
+      _isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +55,13 @@ class _TripsPageState extends State<TripsPage> {
         children: [
           ListView.builder(
             padding: EdgeInsets.all(BlockProperties.thinPadding),
-            itemCount: myTrips.length,
+            itemCount: _trips.length,
             itemBuilder: (context, index){
-              final trip = myTrips[index];
+              final trip = _trips[index];
 
-              return Draggable<Trip>(
+              return _isLoading 
+                ? const Center(child: CircularProgressIndicator())
+                : Draggable<Trip>(
                 data: trip, 
 
                 onDragStarted: () { 

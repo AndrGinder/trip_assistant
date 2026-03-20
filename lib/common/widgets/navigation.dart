@@ -30,7 +30,7 @@ abstract class NavigationUtils {
     => Navigator.pushAndRemoveUntil(
     context,
     MaterialPageRoute<void>(
-      builder: (context) => const TripsPage(title: 'My Trips'),
+      builder: (context) => TripsPage(title: 'My Trips'),
     ),
     (route) => false,
   );
@@ -39,7 +39,7 @@ abstract class NavigationUtils {
     => Navigator.pop(
     context,
     MaterialPageRoute(
-      builder: (context) => const TripsPage(title: 'My Trips'),
+      builder: (context) => TripsPage(title: 'My Trips'),
     ),
   );
   
@@ -47,7 +47,7 @@ abstract class NavigationUtils {
     => Navigator.pushAndRemoveUntil(
     context,
     MaterialPageRoute<void>(
-      builder: (context) => const TripsPage(title: 'My Trips'),
+      builder: (context) => TripsPage(title: 'My Trips'),
     ),
     (route) => false,
   );

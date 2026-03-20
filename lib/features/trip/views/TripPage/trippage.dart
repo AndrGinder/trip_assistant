@@ -18,24 +18,7 @@ class TripPage extends StatefulWidget {
 }
 
 class _TripPageState extends State<TripPage> {
-
-  // Trip trip = myTrips
-  //   .firstWhere((trip) => trip.id == widget.id);
-
-  List<TripItem> items = <TripItem>[
-    TripItem(title: "Towel", tripId: "1"),
-    TripItem(title: "Toothbrush", tripId: "1"),
-    TripItem(title: "Shampoo", tripId: "1"),
-    TripItem(title: "Shaving kit", tripId: "1"),
-    TripItem(title: "Clothes", tripId: "1"),
-    TripItem(title: "Shoes", tripId: "1"),
-  ];
-
-  // void _getTripItems(){
-  //   setState(() {
-  //     item.setState(TripThingState.checked);
-  //   });
-  // }
+  List<TripItem> items = tripItems;
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +30,7 @@ class _TripPageState extends State<TripPage> {
         itemCount: items.length,
         itemBuilder: (context, index) {
           final item = items[index];
+          
           return ListTile(
             title: Text(item.title),
             trailing: switch(item.state) {
@@ -54,7 +38,7 @@ class _TripPageState extends State<TripPage> {
               TripItemState.unchecked => Icon(Icons.check_box_outline_blank),
               TripItemState.excluded => Icon(Icons.block),
             },
-            onTap: ()=> NavigationUtils.navigateToSubmitTripItemPage(
+            onTap: () => NavigationUtils.navigateToSubmitTripItemPage(
               context,
               id: item.id, 
               name: item.title, 
@@ -63,12 +47,6 @@ class _TripPageState extends State<TripPage> {
           );
         },
       ),
-      
-      // else if some of items check they get checked (became less attractive and moves to end of list)
-
-      //show preffered checked/unchecked items list
-      //for every item show check/recheck evaluated button
-      //if item is checked then show uncheck button
 
       floatingActionButton: FloatingActionButton(
         onPressed: (){

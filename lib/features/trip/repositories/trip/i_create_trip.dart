@@ -1,5 +1,5 @@
-abstract class IAddTrip {
-  Future<String> addTrip({
+abstract class ICreateTrip {
+  Future<String> createTrip({
     // required String userId,
     required String name,
     required String destination,
