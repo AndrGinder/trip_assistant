@@ -17,6 +17,8 @@ class TripsPage extends StatefulWidget {
 
 class _TripsPageState extends State<TripsPage> {
   bool _isDragging = false;
+  List<Trip> myTrips = trips;
+  // .where(test);
 
   @override
   Widget build(BuildContext context) {
@@ -28,19 +30,19 @@ class _TripsPageState extends State<TripsPage> {
         children: [
           ListView.builder(
             padding: EdgeInsets.all(BlockProperties.thinPadding),
-            itemCount: trips.length,
+            itemCount: myTrips.length,
             itemBuilder: (context, index){
-              final trip = trips[index];
+              final trip = myTrips[index];
 
               return Draggable<Trip>(
                 data: trip, 
 
                 onDragStarted: () { 
                   HapticFeedback.lightImpact();
-                  setState(() => _isDragging = true); 
+                  _isDragging = true; 
                 },
-                onDraggableCanceled: (_, _) => setState(() => _isDragging = false),
-                onDragEnd: (_) => setState(() => _isDragging = false),
+                onDraggableCanceled: (_, _) => _isDragging = false,
+                onDragEnd: (_) => _isDragging = false,
 
                 feedback: Material(
                   elevation: 12,
@@ -59,7 +61,10 @@ class _TripsPageState extends State<TripsPage> {
 
                 childWhenDragging: Opacity(
                   opacity: .0,
-                  child: TripCard(id: trip.id, name: trip.name),
+                  child: TripCard(
+                    id: trip.id, 
+                    name: trip.name
+                  ),
                 ),
 
                 child: TripCard(
@@ -76,28 +81,26 @@ class _TripsPageState extends State<TripsPage> {
               child: DragTarget<Trip>(
                 onAcceptWithDetails: (details) {
                   final trip = details.data;
-                  setState((){
-                    trips.removeWhere((t) => t.id == trip.id);
-                    _isDragging = false;
-                  });
+                  trips.removeWhere((t) => t.id == trip.id);
+
+                  _isDragging = false;
                 },
-                builder: (context, candidateData, rejectedData) 
-                  => AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    height: 50,
-                    width: 50,
-                    margin: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.blueGrey,
-                    ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.delete,
-                        color: Colors.white,
-                      ),
+                builder: (context, candidateData, rejectedData) => AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  height: 50,
+                  width: 50,
+                  margin: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.blueGrey,
+                  ),
+                  child: const Center(
+                    child: Icon(
+                      Icons.delete,
+                      color: Colors.white,
                     ),
                   ),
+                ),
               )
             ),
         ]
