@@ -3,19 +3,26 @@ import 'package:trip_assistant/common/styles/styles.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
 import 'package:trip_assistant/utils/constants/form.dart';
 
-class AddTripPage extends StatefulWidget {
-  const AddTripPage({
-    super.key,
-    required this.title
+class UpdateTripPage extends StatefulWidget {
+  final String id;
+  final String title;
+  final String tripConditionsId;
+  final String destination = "Destination";
+  final String purpose = "Purpose";
+  final String weather = "Weather";
+
+  const UpdateTripPage({
+    super.key, 
+    required this.id,
+    required this.title,
+    required this.tripConditionsId,
   });
 
-  final String title;
-
   @override
-  State<AddTripPage> createState() => _AddTripPageState();
+  State<UpdateTripPage> createState() => _UpdateTripPageState();
 }
 
-class _AddTripPageState extends State<AddTripPage> {
+class _UpdateTripPageState extends State<UpdateTripPage> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -25,9 +32,9 @@ class _AddTripPageState extends State<AddTripPage> {
         title: Text(widget.title),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsetsGeometry.symmetric(
-          vertical: BlockProperties.thinPadding, 
-          horizontal: BlockProperties.smallPadding
+        padding: EdgeInsets.symmetric(
+          horizontal: BlockProperties.thinPadding,
+          vertical: BlockProperties.smallPadding,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -47,6 +54,7 @@ class _AddTripPageState extends State<AddTripPage> {
                       horizontal: BlockProperties.smallPadding
                     ),
                     child: TextFormField(
+                      initialValue: widget.title,
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: TripNameUtils.label,
@@ -66,6 +74,7 @@ class _AddTripPageState extends State<AddTripPage> {
                       horizontal: BlockProperties.smallPadding
                     ),
                     child: TextFormField(
+                      initialValue: widget.destination,
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: TripDestinationUtils.label,
@@ -82,6 +91,7 @@ class _AddTripPageState extends State<AddTripPage> {
                   Padding(
                     padding: EdgeInsetsGeometry.symmetric(vertical: 5, horizontal: 10),
                     child: TextFormField(
+                      initialValue: widget.purpose,
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: TripPurposeUtils.label,
@@ -98,6 +108,7 @@ class _AddTripPageState extends State<AddTripPage> {
                   Padding(
                     padding: EdgeInsetsGeometry.symmetric(vertical: 5, horizontal: 10),
                     child: TextFormField(
+                      initialValue: widget.weather,
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: TripWeatherUtils.label,
@@ -115,7 +126,7 @@ class _AddTripPageState extends State<AddTripPage> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(TripUtils.snackAdd)),
+                          SnackBar(content: Text(TripUtils.snackUpdate)),
                         );
                         NavigationUtils.back(context);
                       }

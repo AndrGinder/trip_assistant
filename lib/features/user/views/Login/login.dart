@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:trip_assistant/common/styles/styles.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
-import 'package:trip_assistant/utils/constants/userform.dart';
+import 'package:trip_assistant/utils/constants/form.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.title});

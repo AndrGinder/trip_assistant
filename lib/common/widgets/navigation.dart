@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trip_assistant/features/trip/views/AddTrip/addtrippage.dart';
-import 'package:trip_assistant/features/trip/views/EditTrip/edittrippage.dart';
+import 'package:trip_assistant/features/trip/views/UpdateTrip/updatetrippage.dart';
 import 'package:trip_assistant/features/trip/views/SubmitItem/submititempage.dart';
 import 'package:trip_assistant/features/trip/views/TripPage/trippage.dart';
 import 'package:trip_assistant/features/trip/views/TripsPage/tripspage.dart';
@@ -74,7 +74,7 @@ abstract class NavigationUtils {
   }) => Navigator.push(
     context,
     MaterialPageRoute<void>(
-      builder: (context) => EditTripPage(
+      builder: (context) => UpdateTripPage(
         title: title,
         id: id,
         tripConditionsId: tripConditionsId,

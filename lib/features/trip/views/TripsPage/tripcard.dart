@@ -28,21 +28,3 @@ class TripCard extends StatelessWidget {
     );
   }
 }
-
-class TripCardDrag extends StatelessWidget {
-  const TripCardDrag({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Opacity(
-        opacity: BlockProperties.opacity,
-        child: ListTile(
-          tileColor: Colors.blueGrey.shade100,
-        ),
-      ),
-    );
-  }
-}
