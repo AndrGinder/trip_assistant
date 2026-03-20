@@ -77,13 +77,17 @@ class _SubmitTripItemPageState extends State<SubmitTripItemPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          NavigationUtils.back(context);
+          NavigationUtils.navigateBackToTripPage(
+            context,
+            id: widget.tripId, 
+            title: widget.name
+          );
           
           // if app gets and save an validation image
           // then submits selected trip item
           // and navigates to trip page
         },
-        tooltip: 'Submit Item',
+        tooltip: 'Submit',
         child: const Icon(Icons.check),
       ),
     );

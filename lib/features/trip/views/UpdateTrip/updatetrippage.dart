@@ -2,20 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:trip_assistant/common/styles/styles.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
 import 'package:trip_assistant/utils/constants/form.dart';
+import 'package:trip_assistant/utils/constants/models.dart';
+import 'package:trip_assistant/utils/constants/trip.dart';
 
 class UpdateTripPage extends StatefulWidget {
   final String id;
   final String title;
-  final String tripConditionsId;
-  final String destination = "Destination";
-  final String purpose = "Purpose";
-  final String weather = "Weather";
 
   const UpdateTripPage({
     super.key, 
     required this.id,
     required this.title,
-    required this.tripConditionsId,
   });
 
   @override
@@ -24,6 +21,21 @@ class UpdateTripPage extends StatefulWidget {
 
 class _UpdateTripPageState extends State<UpdateTripPage> {
   final _formKey = GlobalKey<FormState>();
+  late String _name;
+  late String _destination;
+  late String _purpose;
+  late String _weather;
+
+  _UpdateTripPageState() {
+
+    Trip trip = trips
+      .firstWhere((trip) => trip.id == widget.id);
+
+    _name = trip.name;
+    _destination = trip.destination;
+    _purpose = trip.purpose;
+    _weather = trip.weather;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +66,7 @@ class _UpdateTripPageState extends State<UpdateTripPage> {
                       horizontal: BlockProperties.smallPadding
                     ),
                     child: TextFormField(
-                      initialValue: widget.title,
+                      initialValue: _name,
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: TripNameUtils.label,
@@ -73,62 +85,93 @@ class _UpdateTripPageState extends State<UpdateTripPage> {
                       vertical: BlockProperties.thinPadding, 
                       horizontal: BlockProperties.smallPadding
                     ),
-                    child: TextFormField(
-                      initialValue: widget.destination,
+                    child: DropdownButtonFormField<String>(
+                      initialValue: _destination,
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: TripDestinationUtils.label,
                         hintText: TripDestinationUtils.hint,
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return TripDestinationUtils.emptyError;
-                        }
-                        return null;
-                      },
+                      items: destinationConditions
+                        .map((destination) => DropdownMenuItem<String>(
+                          value: destination,
+                          child: Text(destination),
+                        ))
+                        .toList(),
+                      onChanged: (value) => setState(() => _destination = value ?? ''),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsGeometry.symmetric(vertical: 5, horizontal: 10),
-                    child: TextFormField(
-                      initialValue: widget.purpose,
+                    padding: EdgeInsetsGeometry.symmetric(
+                      vertical: BlockProperties.thinPadding, 
+                      horizontal: BlockProperties.smallPadding
+                    ),
+                    child: DropdownButtonFormField<String>(
+                      initialValue: _purpose,
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: TripPurposeUtils.label,
                         hintText: TripPurposeUtils.hint,
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return TripPurposeUtils.emptyError;
-                        }
-                        return null;
-                      },
+                      items: purposeConditions
+                        .map((purpose) => DropdownMenuItem<String>(
+                          value: purpose,
+                          child: Text(purpose),
+                        ))
+                        .toList(),
+                      onChanged: (value) => setState(() => _purpose = value ?? ''),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsGeometry.symmetric(vertical: 5, horizontal: 10),
-                    child: TextFormField(
-                      initialValue: widget.weather,
+                    padding: EdgeInsetsGeometry.symmetric(
+                      vertical: BlockProperties.thinPadding, 
+                      horizontal: BlockProperties.smallPadding
+                    ),
+                    child: DropdownButtonFormField<String>(
+                      initialValue: _weather,
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: TripWeatherUtils.label,
                         hintText: TripWeatherUtils.hint,
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return TripWeatherUtils.emptyError;
-                        }
-                        return null;
-                      },
+                      items: weatherConditions
+                        .map((weather) => DropdownMenuItem<String>(
+                          value: weather,
+                          child: Text(weather),
+                        ))
+                        .toList(),
+                      onChanged: (value) => setState(() => _weather = value ?? ''),
                     ),
                   ),
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(TripUtils.snackUpdate)),
-                        );
-                        NavigationUtils.back(context);
+                        try{
+                          Trip trip = trips
+                            .firstWhere((trip) => trip.id == widget.id);
+
+                          trips.removeWhere((trip) => trip.id == widget.id);
+                            
+                          trip.name = _name;
+                          trip.destination = _destination;
+                          trip.purpose = _purpose;
+                          trip.weather = _weather;
+
+                          trips.add(trip);
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(TripUtils.snackUpdate)),
+                          );
+                          NavigationUtils.navigateBackToTripPage(
+                            context, 
+                            id: widget.id, 
+                            title: widget.title
+                          );
+                        } catch(e){
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(TripUtils.snackError)),
+                          );
+                        }
                       }
                     }, 
                     child: Text('Submit')

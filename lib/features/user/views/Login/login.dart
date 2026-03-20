@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                       const Text("Don't have an account? "),
                       TextButton(
                         onPressed: () {
-                          NavigationUtils.back(context);
+                          NavigationUtils.navigateBack(context);
                           NavigationUtils.navigateToSignUpPage(context);
                         },
                         child: const Text("Sign up"),

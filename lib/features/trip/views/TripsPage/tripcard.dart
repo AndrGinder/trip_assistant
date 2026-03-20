@@ -17,12 +17,12 @@ class TripCard extends StatelessWidget {
       child: ListTile(
         title: Text(name),
         subtitle: Text(id),
-        onTap: () => NavigationUtils.navigateToTripPage(
-          context, 
-          id: id, 
-          title: name, 
-          conditionsId: "1"
-        ),
+        onTap: () => NavigationUtils
+          .navigateToTripPage(
+            context, 
+            id: id, 
+            title: name,
+          ),
       ),
     );
   }

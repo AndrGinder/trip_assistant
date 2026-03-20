@@ -3,7 +3,7 @@ import 'package:trip_assistant/utils/constants/models.dart';
 
 class ReadTrip implements IReadTrip {
   @override
-  Future<TripCondition> readTrip({
+  Future<Trip> readTrip({
     required String id
   }) async {
     // Implementation for reading a trip

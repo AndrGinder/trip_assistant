@@ -1,14 +1,18 @@
 import 'package:trip_assistant/utils/constants/models.dart';
 
-var myTrips = <Trip>[
-  Trip(userId: "user1", name: "Budapest B2B Conference"),
-  Trip(userId: "user1", name: "Date with Angela at Marconi`s"),
-  Trip(userId: "user1", name: "Buy new shoes"),
-  Trip(userId: "user1", name: "Buy products"),
-  Trip(userId: "user1", name: "Date with Angela at Marconi`s"),
-  Trip(userId: "user1", name: "Wash car"),
-  Trip(userId: "user1", name: "Daily meeting"),
+var trips = <Trip>[
+  Trip(userId: "user1", name: "Budapest B2B Conference", destination: '', purpose: '', weather: ''),
+  Trip(userId: "user1", name: "Date with Angela at Marconi`s", destination: '', purpose: '', weather: ''),
+  Trip(userId: "user1", name: "Buy new shoes", destination: '', purpose: '', weather: ''),
+  Trip(userId: "user1", name: "Buy products", destination: '', purpose: '', weather: ''),
+  Trip(userId: "user1", name: "Date with Angela at Marconi`s", destination: '', purpose: '', weather: ''),
+  Trip(userId: "user1", name: "Wash car", destination: '', purpose: '', weather: ''),
+  Trip(userId: "user1", name: "Daily meeting", destination: '', purpose: '', weather: ''),
 ];
+
+var destinationConditions = ['Beach', 'Mountain', 'City', 'Countryside'];
+var purposeConditions = ['Leisure', 'Business', 'Education', 'Other'];
+var weatherConditions = ['Sunny', 'Rainy', 'Cloudy', 'Snowy'];
 
 enum Location{
   city,
@@ -40,11 +44,11 @@ enum Weather{
   spa,
 }
 
-enum TripConditionType{
-  destination,
-  weather,
-  purpose,
-}
+// enum TripConditionType{
+//   destination,
+//   weather,
+//   purpose,
+// }
 
 enum TripItemState{
   unchecked,
@@ -52,40 +56,40 @@ enum TripItemState{
   excluded,
 }
 
-enum TripItemType{
-  passport,
-  tickets,
-  booking,
-  insurance,
-  driversDocs,
-  creditCards,
-  cash,
-  phone,
-  chargingDevices,
-  powerBank,
-  earphones,
-  gadgets,
-  toothHygiene,
-  bodyCare,
-  faceCare,
-  cleaningThings,
-  basicFirstAidKit,
-  stomachMedicine,
-  allergicMedicine,
-  individualMedicine,
-  basicClothes,
-  warmClothes,
-  summerClothes,
-  formalClothes,
-  footwear,
-  sunProtect,
-  coldProtect,
-  rainProtect,
-  camping,
-  beach,
-  sport,
-  additional,
-}
+// enum TripItemType{
+//   passport,
+//   tickets,
+//   booking,
+//   insurance,
+//   driversDocs,
+//   creditCards,
+//   cash,
+//   phone,
+//   chargingDevices,
+//   powerBank,
+//   earphones,
+//   gadgets,
+//   toothHygiene,
+//   bodyCare,
+//   faceCare,
+//   cleaningThings,
+//   basicFirstAidKit,
+//   stomachMedicine,
+//   allergicMedicine,
+//   individualMedicine,
+//   basicClothes,
+//   warmClothes,
+//   summerClothes,
+//   formalClothes,
+//   footwear,
+//   sunProtect,
+//   coldProtect,
+//   rainProtect,
+//   camping,
+//   beach,
+//   sport,
+//   additional,
+// }
 
 // enum TripItemTitle{
 //   "Passport of Citizen",

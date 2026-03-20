@@ -20,23 +20,16 @@ class Trip{
   String id = uuid.v4();
   String userId;
   String name;
+  String destination;
+  String purpose;
+  String weather;
 
   Trip({
     required this.userId,
-    required this.name
-  });
-}
-
-class TripCondition{
-  String? id = uuid.v4();
-  String title;
-  TripConditionType type;
-  int tripId;
-
-  TripCondition({
-    required this.title,
-    required this.type, 
-    required this.tripId
+    required this.name,
+    required this.destination,
+    required this.purpose,
+    required this.weather,
   });
 }
 

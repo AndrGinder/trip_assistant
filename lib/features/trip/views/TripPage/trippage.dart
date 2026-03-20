@@ -5,14 +5,12 @@ import 'package:trip_assistant/common/widgets/navigation.dart';
 
 class TripPage extends StatefulWidget {
   final String id;
-  final String conditionsId;
-  final String name;
+  final String title;
 
   const TripPage({
     super.key,
     required this.id, 
-    required this.conditionsId, 
-    required this.name
+    required this.title
   });
 
   @override
@@ -43,7 +41,7 @@ class _TripPageState extends State<TripPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.name),
+        title: Text(widget.title),
       ),
       body: ListView.builder(
         itemCount: items.length,
@@ -77,11 +75,10 @@ class _TripPageState extends State<TripPage> {
           NavigationUtils.navigateToEditTripPage(
             context, 
             id: widget.id, 
-            title: widget.name, 
-            tripConditionsId: widget.conditionsId
+            title: widget.title,
           );
         },
-        tooltip: widget.name,
+        tooltip: widget.title,
         child: Icon(Icons.edit),
       ),
     );

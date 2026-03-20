@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:trip_assistant/utils/theme/customthemes/appbartheme.dart';
-import 'package:trip_assistant/utils/theme/customthemes/bottomsheettheme.dart';
-import 'package:trip_assistant/utils/theme/customthemes/checkboxtheme.dart';
-import 'package:trip_assistant/utils/theme/customthemes/chiptheme.dart';
-import 'package:trip_assistant/utils/theme/customthemes/elevatedbuttontheme.dart';
-import 'package:trip_assistant/utils/theme/customthemes/floatingactionbuttontheme.dart';
-import 'package:trip_assistant/utils/theme/customthemes/inputdecorationtheme.dart';
-import 'package:trip_assistant/utils/theme/customthemes/outlinedbuttontheme.dart';
-import 'package:trip_assistant/utils/theme/customthemes/texttheme.dart';
+import 'package:trip_assistant/utils/theme/customthemes/app_bar_theme.dart';
+import 'package:trip_assistant/utils/theme/customthemes/bottom_sheet_theme.dart';
+import 'package:trip_assistant/utils/theme/customthemes/checkbox_theme.dart';
+import 'package:trip_assistant/utils/theme/customthemes/chip_theme.dart';
+import 'package:trip_assistant/utils/theme/customthemes/elevated_button_theme.dart';
+import 'package:trip_assistant/utils/theme/customthemes/floating_action_button_theme.dart';
+import 'package:trip_assistant/utils/theme/customthemes/input_decoration_theme.dart';
+import 'package:trip_assistant/utils/theme/customthemes/outlined_button_theme.dart';
+import 'package:trip_assistant/utils/theme/customthemes/text_theme.dart';
 
 class TripAssistantTheme {
   TripAssistantTheme._();

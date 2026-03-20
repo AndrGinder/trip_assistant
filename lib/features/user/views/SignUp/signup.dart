@@ -118,7 +118,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       const Text("Have an account? "),
                       TextButton(
                         onPressed: () {
-                          NavigationUtils.back(context);
+                          NavigationUtils.navigateBack(context);
                           NavigationUtils.navigateToSignInPage(context);
                         },
                         child: const Text("Sign in"),
@@ -131,7 +131,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState?.validate() ?? false) {
-                          NavigationUtils.back(context);
+                          NavigationUtils.navigateBack(context);
                           NavigationUtils.navigateToSignInPage(context);
                         }
                       },

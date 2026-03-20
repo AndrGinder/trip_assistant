@@ -55,5 +55,5 @@ class TripUtils {
   static final String headline = "Fill the general conditions of your trip";
   static final String snackAdd = "New trip added successfully!";
   static final String snackUpdate = "Trip updated successfully!";
-  static final String emptyError = "Name is required";
+  static final String snackError = "Something went wrong. Please try again.";
 }

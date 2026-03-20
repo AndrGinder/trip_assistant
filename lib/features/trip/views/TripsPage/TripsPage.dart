@@ -28,9 +28,9 @@ class _TripsPageState extends State<TripsPage> {
         children: [
           ListView.builder(
             padding: EdgeInsets.all(BlockProperties.thinPadding),
-            itemCount: myTrips.length,
+            itemCount: trips.length,
             itemBuilder: (context, index){
-              final trip = myTrips[index];
+              final trip = trips[index];
 
               return Draggable<Trip>(
                 data: trip, 
@@ -77,7 +77,7 @@ class _TripsPageState extends State<TripsPage> {
                 onAcceptWithDetails: (details) {
                   final trip = details.data;
                   setState((){
-                    myTrips.removeWhere((t) => t.id == trip.id);
+                    trips.removeWhere((t) => t.id == trip.id);
                     _isDragging = false;
                   });
                 },
