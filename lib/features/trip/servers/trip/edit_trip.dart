@@ -1,4 +1,4 @@
-import 'package:trip_assistant/features/trip/repositories/trip/IEditTrip.dart';
+import 'package:trip_assistant/features/trip/repositories/trip/i_edit_trip.dart';
 
 class EditTrip implements IEditTrip {
   @override

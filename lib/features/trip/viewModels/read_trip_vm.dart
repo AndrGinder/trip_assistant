@@ -1,8 +1,8 @@
-class TripVm {
+class TripVM {
   String id;
   String description;
 
-  TripVm({
+  TripVM({
     required this.id,
     required this.description,
   });

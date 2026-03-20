@@ -1,4 +1,4 @@
-import 'package:trip_assistant/features/trip/repositories/tripCondition/IEditTripCondition.dart';
+import 'package:trip_assistant/features/trip/repositories/tripCondition/i_edit_trip_condition.dart';
 
 class EditTripCondition implements IEditTripCondition {
   @override

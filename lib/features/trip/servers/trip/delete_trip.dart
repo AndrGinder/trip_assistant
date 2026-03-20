@@ -1,4 +1,4 @@
-import 'package:trip_assistant/features/trip/repositories/trip/IDeleteTrip.dart';
+import 'package:trip_assistant/features/trip/repositories/trip/i_delete_trip.dart';
 
 class DeleteTrip implements IDeleteTrip {
   @override

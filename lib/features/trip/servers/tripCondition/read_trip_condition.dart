@@ -1,4 +1,4 @@
-import 'package:trip_assistant/features/trip/repositories/tripCondition/IReadTripCondition.dart';
+import 'package:trip_assistant/features/trip/repositories/tripCondition/i_read_trip_condition.dart';
 import 'package:trip_assistant/utils/constants/models.dart';
 
 class ReadTripCondition implements IReadTripCondition {

@@ -1,11 +1,11 @@
 import 'package:trip_assistant/utils/constants/trip.dart';
 
-class TripItemVm {
+class TripItemVM {
   String id;
   String title;
   TripItemState state;
 
-  TripItemVm({
+  TripItemVM({
     required this.id,
     required this.title,
     required this.state,

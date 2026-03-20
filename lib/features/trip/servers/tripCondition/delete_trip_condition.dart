@@ -1,4 +1,4 @@
-import 'package:trip_assistant/features/trip/repositories/tripCondition/IDeleteTripCondition.dart';
+import 'package:trip_assistant/features/trip/repositories/tripCondition/i_delete_trip_condition.dart';
 
 class DeleteTripCondition implements IDeleteTripCondition {
   @override

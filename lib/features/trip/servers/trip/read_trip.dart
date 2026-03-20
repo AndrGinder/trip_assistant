@@ -1,4 +1,4 @@
-import 'package:trip_assistant/features/trip/repositories/trip/IReadTrip.dart';
+import 'package:trip_assistant/features/trip/repositories/trip/i_read_trip.dart';
 import 'package:trip_assistant/utils/constants/models.dart';
 
 class ReadTrip implements IReadTrip {

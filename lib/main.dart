@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:trip_assistant/features/user/views/Login/login.dart';
-import 'package:trip_assistant/features/user/views/StartPage/startpage.dart';
 import 'package:trip_assistant/utils/theme/theme.dart';
 
 void main() {
