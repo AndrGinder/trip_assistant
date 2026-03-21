@@ -1,4 +1,4 @@
-import 'package:trip_assistant/features/trip/repositories/trip/i_delete_trip.dart';
+import 'package:trip_assistant/features/trip/repositories/deleteTrip/i_delete_trip.dart';
 import 'package:trip_assistant/utils/constants/trip.dart';
 
 class DeleteTripService implements IDeleteTrip {

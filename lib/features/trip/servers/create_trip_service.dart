@@ -1,4 +1,4 @@
-import 'package:trip_assistant/features/trip/repositories/trip/i_create_trip.dart';
+import 'package:trip_assistant/features/trip/repositories/createTrip/i_create_trip.dart';
 import 'package:trip_assistant/utils/constants/models.dart';
 import 'package:trip_assistant/utils/constants/trip.dart';
 

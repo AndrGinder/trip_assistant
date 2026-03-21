@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:trip_assistant/features/trip/controllers/trips_page_controller.dart';
-import 'package:trip_assistant/features/trip/servers/trip/delete_trip.dart';
-import 'package:trip_assistant/features/trip/servers/trip/filter_trips.dart';
+import 'package:trip_assistant/features/trip/repositories/deleteTrip/delete_trip.dart';
+import 'package:trip_assistant/features/trip/repositories/filterTrip/filter_trips.dart';
 import 'package:trip_assistant/features/trip/views/TripsPage/tripcard.dart';
 import 'package:trip_assistant/common/styles/styles.dart';
 import 'package:trip_assistant/utils/constants/models.dart';
@@ -57,7 +57,6 @@ class _TripsPageState extends State<TripsPage> {
           ? const Center(child: CircularProgressIndicator())
           : Stack(
               children: [
-                /// LIST
                 ListView.builder(
                   padding: EdgeInsets.all(BlockProperties.thinPadding),
                   itemCount: _trips.length,
@@ -73,14 +72,13 @@ class _TripsPageState extends State<TripsPage> {
                         HapticFeedback.lightImpact();
                         setState(() => _isDragging = true);
                       },
-                      onDraggableCanceled: (_, __) {
+                      onDraggableCanceled: (_, _) {
                         setState(() => _isDragging = false);
                       },
                       onDragEnd: (_) {
                         setState(() => _isDragging = false);
                       },
 
-                      /// FLOATING CARD
                       feedback: Material(
                         elevation: 12,
                         color: Colors.transparent,
@@ -97,14 +95,12 @@ class _TripsPageState extends State<TripsPage> {
                         ),
                       ),
 
-                      /// ORIGINAL PLACEHOLDER
                       childWhenDragging: TripCard(
                         id: trip.id,
                         name: trip.name,
                         isDragging: true,
                       ),
 
-                      /// NORMAL CARD
                       child: TripCard(
                         id: trip.id,
                         name: trip.name,
@@ -113,7 +109,6 @@ class _TripsPageState extends State<TripsPage> {
                   },
                 ),
 
-                /// DELETE AREA
                 if (_isDragging)
                   Align(
                     alignment: Alignment.bottomCenter,
@@ -132,7 +127,7 @@ class _TripsPageState extends State<TripsPage> {
                         return AnimatedContainer(
                           duration: const Duration(milliseconds: 200),
                           height: 80,
-                          width: double.infinity,
+                          width: 80,
                           margin: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
                             color: isActive
