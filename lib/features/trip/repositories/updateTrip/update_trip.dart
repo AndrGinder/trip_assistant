@@ -1,5 +1,4 @@
 import 'package:trip_assistant/features/trip/repositories/updateTrip/i_update_trip.dart';
-import 'package:trip_assistant/utils/constants/models.dart';
 import 'package:trip_assistant/utils/constants/trip.dart';
 
 class UpdateTrip implements IUpdateTrip {
@@ -11,18 +10,16 @@ class UpdateTrip implements IUpdateTrip {
     required String purpose,
     required String weather,
   }) async {
-    Trip trip = trips
-      .firstWhere((trip) => trip.id == id);
+    final index = trips.indexWhere((trip) => trip.id == id);
 
-    trips.removeWhere((trip) => trip.id == id);
-      
-    trip.name = name;
-    trip.destination = destination;
-    trip.purpose = purpose;
-    trip.weather = weather;
+    if (index != -1) {
+      trips[index]
+        ..name = name
+        ..destination = destination
+        ..purpose = purpose
+        ..weather = weather;
+    }
 
-    trips.add(trip);
-
-    return trip.id;
+    return id;
   }
 }
