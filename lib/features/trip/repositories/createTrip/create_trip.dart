@@ -4,7 +4,7 @@ import 'package:trip_assistant/utils/constants/trip.dart';
 
 class CreateTrip implements ICreateTrip {
   @override
-  Future<String> createTrip({
+  Future<String> createRecord({
     required String name,
     required String destination,
     required String purpose,
@@ -17,6 +17,7 @@ class CreateTrip implements ICreateTrip {
       purpose: purpose, 
       weather: weather
     );
+    
     trips.add(newTrip);
 
     return newTrip.id;

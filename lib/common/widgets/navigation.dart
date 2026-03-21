@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:trip_assistant/features/trip/views/AddTrip/addtrippage.dart';
-import 'package:trip_assistant/features/trip/views/UpdateTrip/updatetrippage.dart';
+import 'package:trip_assistant/features/trip/views/CreateTrip/create_trip_page.dart';
+import 'package:trip_assistant/features/trip/views/UpdateTrip/update_trip_page.dart';
 import 'package:trip_assistant/features/trip/views/SubmitItem/submititempage.dart';
-import 'package:trip_assistant/features/trip/views/TripPage/trippage.dart';
-import 'package:trip_assistant/features/trip/views/TripsPage/tripspage.dart';
+import 'package:trip_assistant/features/trip/views/TripPage/trip_page.dart';
+import 'package:trip_assistant/features/trip/views/TripsPage/trips_page.dart';
 import 'package:trip_assistant/features/user/views/Login/login.dart';
 import 'package:trip_assistant/features/user/views/SignUp/signup.dart';
 
@@ -86,7 +86,7 @@ abstract class NavigationUtils {
     Navigator.push(
       context,
       MaterialPageRoute<void>(
-        builder: (context) => const AddTripPage(title: 'Add new Trip'),
+        builder: (context) => CreateTripPage(title: 'Add new Trip'),
       ),
     );
   }

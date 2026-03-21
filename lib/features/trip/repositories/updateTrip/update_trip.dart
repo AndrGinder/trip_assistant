@@ -2,9 +2,9 @@ import 'package:trip_assistant/features/trip/repositories/updateTrip/i_update_tr
 import 'package:trip_assistant/utils/constants/models.dart';
 import 'package:trip_assistant/utils/constants/trip.dart';
 
-class EditTrip implements IUpdateTrip {
+class UpdateTrip implements IUpdateTrip {
   @override
-  Future<String> updateTrip({
+  Future<String> updateRecord({
     required String id,
     required String name,
     required String destination,

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:trip_assistant/features/trip/controllers/trips_page_controller.dart';
 import 'package:trip_assistant/features/trip/repositories/deleteTrip/delete_trip.dart';
 import 'package:trip_assistant/features/trip/repositories/filterTrip/filter_trips.dart';
-import 'package:trip_assistant/features/trip/views/TripsPage/tripcard.dart';
+import 'package:trip_assistant/features/trip/views/TripsPage/trip_card.dart';
 import 'package:trip_assistant/common/styles/styles.dart';
 import 'package:trip_assistant/utils/constants/models.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
@@ -12,8 +12,8 @@ class TripsPage extends StatefulWidget {
   final String title;
 
   final TripsPageController controller = TripsPageController(
-    filterTripsService: FilterTripsService(),
-    deleteTripService: DeleteTripService(),
+    filterTripsService: FilterTrips(),
+    deleteTripService: DeleteTrip(),
   );
 
   TripsPage({
@@ -38,7 +38,7 @@ class _TripsPageState extends State<TripsPage> {
   }
 
   Future<void> _loadTrips() async {
-    final data = await widget.controller.tripsPage();
+    final data = await widget.controller.loadTrips();
 
     setState(() {
       _trips = data;
@@ -116,8 +116,8 @@ class _TripsPageState extends State<TripsPage> {
                       onAcceptWithDetails: (details) {
                         final trip = details.data;
 
-                        setState(() {
-                          _trips.removeWhere((t) => t.id == trip.id);
+                        setState(() async {
+                          await widget.controller.deleteTripCard(trip.id);
                           _isDragging = false;
                         });
                       },
@@ -131,15 +131,15 @@ class _TripsPageState extends State<TripsPage> {
                           margin: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
                             color: isActive
-                                ? Colors.redAccent
-                                : Colors.blueGrey,
+                              ? Colors.redAccent
+                              : Colors.blueGrey,
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: Center(
                             child: Icon(
                               isActive
-                                  ? Icons.delete_forever
-                                  : Icons.delete_outline,
+                                ? Icons.delete_forever
+                                : Icons.delete_outline,
                               color: Colors.white,
                               size: 32,
                             ),

@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:trip_assistant/common/styles/styles.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
+import 'package:trip_assistant/features/trip/controllers/create_trip_page_controller.dart';
+import 'package:trip_assistant/features/trip/repositories/createTrip/create_trip.dart';
 import 'package:trip_assistant/utils/constants/form.dart';
-import 'package:trip_assistant/utils/constants/models.dart';
 import 'package:trip_assistant/utils/constants/trip.dart';
 
-class AddTripPage extends StatefulWidget {
-  const AddTripPage({
+class CreateTripPage extends StatefulWidget {
+  final String title;
+
+  final CreateTripPageController controller = CreateTripPageController(
+    createTripService: CreateTrip(),
+  );
+
+  CreateTripPage({
     super.key,
     required this.title
   });
 
-  final String title;
-
   @override
-  State<AddTripPage> createState() => _AddTripPageState();
+  State<CreateTripPage> createState() => _CreateTripPageState();
 }
 
-class _AddTripPageState extends State<AddTripPage> {
+class _CreateTripPageState extends State<CreateTripPage> {
   final _formKey = GlobalKey<FormState>();
   String _name = '';
   String _destination = '';
@@ -149,23 +154,31 @@ class _AddTripPageState extends State<AddTripPage> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        try{
-                          Trip newTrip = Trip(
-                            userId: "user1", 
+                        try {
+                          var tripId = await widget.controller.createRecord(
                             name: _name, 
                             destination: _destination, 
                             purpose: _purpose, 
                             weather: _weather
                           );
-                          trips.add(newTrip);
 
+                          if(tripId == "0") {
+                            // ignore: use_build_context_synchronously
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(TripUtils.snackError)),
+                            );
+                          }
+                          // ignore: use_build_context_synchronously
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(TripUtils.snackAdd)),
                           );
+
+                          // ignore: use_build_context_synchronously
                           NavigationUtils.navigateBackToTripsPage(context);
                         } catch(e){
+                          // ignore: use_build_context_synchronously
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(TripUtils.snackError)),
                           );

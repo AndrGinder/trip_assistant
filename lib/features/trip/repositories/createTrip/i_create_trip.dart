@@ -1,5 +1,5 @@
 abstract class ICreateTrip {
-  Future<String> createTrip({
+  Future<String> createRecord({
     // required String userId,
     required String name,
     required String destination,

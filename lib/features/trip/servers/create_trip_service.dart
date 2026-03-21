@@ -2,9 +2,9 @@ import 'package:trip_assistant/features/trip/repositories/createTrip/i_create_tr
 import 'package:trip_assistant/utils/constants/models.dart';
 import 'package:trip_assistant/utils/constants/trip.dart';
 
-class CreateTrip implements ICreateTrip {
+class CreateTripService implements ICreateTrip {
   @override
-  Future<String> createTrip({
+  Future<String> createRecord({
     required String name,
     required String destination,
     required String purpose,
