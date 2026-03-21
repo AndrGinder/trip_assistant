@@ -35,13 +35,13 @@ class Trip{
 
 class TripItem{
   String id = uuid.v4();
-  String title;
+  String name;
   // Image? screen;
   String tripId;
   TripItemState state = TripItemState.unchecked;
 
   TripItem({
-    required this.title, 
+    required this.name, 
     required this.tripId,
   });
 

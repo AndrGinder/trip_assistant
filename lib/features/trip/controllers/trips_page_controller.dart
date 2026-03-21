@@ -11,16 +11,16 @@ class TripsPageController {
     required this.deleteTripService,
   });
 
-  Future<List<Trip>> loadTrips({
-    String userId = "user1"
-  }) async {
+  Future<List<Trip>> loadTrips(
+    String userId
+  ) async {
     var trips = await filterTripsService
-        .filterByUserId(userId: userId);
+      .filterByUserId(userId: userId);
 
     return trips;
   }
 
-  Future<String> deleteTripCard(
+  Future<String> deleteTrip(
     String id
   ) async {
     await deleteTripService

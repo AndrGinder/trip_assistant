@@ -38,7 +38,8 @@ class _TripsPageState extends State<TripsPage> {
   }
 
   Future<void> _loadTrips() async {
-    final data = await widget.controller.loadTrips();
+    final data = await widget.controller
+      .loadTrips("user1");
 
     setState(() {
       _trips = data;
@@ -113,12 +114,14 @@ class _TripsPageState extends State<TripsPage> {
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: DragTarget<Trip>(
-                      onAcceptWithDetails: (details) {
+                      onAcceptWithDetails: (details) async {
                         final trip = details.data;
 
-                        setState(() async {
-                          await widget.controller.deleteTripCard(trip.id);
+                        await widget.controller.deleteTrip(trip.id);
+
+                        setState(() {
                           _isDragging = false;
+                          _trips.removeWhere((t) => t.id == trip.id);
                         });
                       },
                       builder: (context, candidateData, rejectedData) {

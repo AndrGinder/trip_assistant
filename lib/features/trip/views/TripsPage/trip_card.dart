@@ -6,7 +6,6 @@ class TripCard extends StatelessWidget {
   final String id;
   final String name;
 
-  // UI states
   final bool isDragging;
   final bool isFeedback;
   final VoidCallback? onTap;
@@ -23,23 +22,25 @@ class TripCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final card = Card(
-      elevation: isFeedback ? 12 : 2,
+      elevation: isFeedback 
+        ? 12 
+        : 2,
       child: Opacity(
         opacity: isDragging ? BlockProperties.zeroOpacity : 1,
         child: ListTile(
           tileColor: isDragging
-              ? Colors.blueGrey.shade100
-              : null,
+            ? Colors.blueGrey.shade100
+            : null,
           title: Text(name),
           subtitle: Text(id),
           onTap: isDragging
-              ? null
-              : onTap ??
-                  () => NavigationUtils.navigateToTripPage(
-                        context,
-                        id: id,
-                        title: name,
-                      ),
+            ? null
+            : onTap ??
+              () => NavigationUtils.navigateToTripPage(
+                context,
+                id: id,
+                title: name,
+              ),
         ),
       ),
     );

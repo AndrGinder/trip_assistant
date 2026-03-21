@@ -10,18 +10,18 @@ var trips = <Trip>[
   Trip(userId: "user1", name: "Daily meeting", destination: '', purpose: '', weather: ''),
 ];
 
+List<TripItem> tripItems = <TripItem>[
+  TripItem(name: "Towel", tripId: "1"),
+  TripItem(name: "Toothbrush", tripId: "1"),
+  TripItem(name: "Shampoo", tripId: "1"),
+  TripItem(name: "Shaving kit", tripId: "1"),
+  TripItem(name: "Clothes", tripId: "1"),
+  TripItem(name: "Shoes", tripId: "1"),
+];
+
 var destinationConditions = ['Beach', 'Mountain', 'City', 'Countryside'];
 var purposeConditions = ['Leisure', 'Business', 'Education', 'Other'];
 var weatherConditions = ['Sunny', 'Rainy', 'Cloudy', 'Snowy'];
-
-List<TripItem> tripItems = <TripItem>[
-  TripItem(title: "Towel", tripId: "1"),
-  TripItem(title: "Toothbrush", tripId: "1"),
-  TripItem(title: "Shampoo", tripId: "1"),
-  TripItem(title: "Shaving kit", tripId: "1"),
-  TripItem(title: "Clothes", tripId: "1"),
-  TripItem(title: "Shoes", tripId: "1"),
-];
 
 enum Location{
   city,
