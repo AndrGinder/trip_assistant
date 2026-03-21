@@ -32,7 +32,6 @@ class TripCard extends StatelessWidget {
             ? Colors.blueGrey.shade100
             : null,
           title: Text(name),
-          subtitle: Text(id),
           onTap: isDragging
             ? null
             : onTap ??
