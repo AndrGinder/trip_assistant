@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "37943352105",
+    "project_id": "trip-assistant-b04f5",
+    "storage_bucket": "trip-assistant-b04f5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37943352105:android:e2ad4bc66ae7284e4a7538",
+        "android_client_info": {
+          "package_name": "com.example.trip_assistant"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZvgmfrG9Vlj3tawcCcLQsBkJ-9GFZnzU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

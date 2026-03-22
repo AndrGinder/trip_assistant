@@ -129,17 +129,14 @@ class _SignUpPageState extends State<SignUpPage> {
                         ],
                       ),
                       SizedBox(height: BlockProperties.smallPadding),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (_formKey.currentState?.validate() ?? false) {
-                              NavigationUtils.navigateBack(context);
-                              NavigationUtils.navigateToSignInPage(context);
-                            }
-                          },
-                          child: Text('Sign up')
-                        ),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState?.validate() ?? false) {
+                            NavigationUtils.navigateBack(context);
+                            NavigationUtils.navigateToSignInPage(context);
+                          }
+                        },
+                        child: Text('Sign up'),
                       ),
                     ],
                   ),
