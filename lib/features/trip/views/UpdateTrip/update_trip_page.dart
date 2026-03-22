@@ -5,6 +5,7 @@ import 'package:trip_assistant/features/trip/controllers/update_trip_page_contro
 import 'package:trip_assistant/features/trip/repositories/readTrip/read_trip.dart';
 import 'package:trip_assistant/features/trip/repositories/updateTrip/update_trip.dart';
 import 'package:trip_assistant/utils/constants/form.dart';
+import 'package:trip_assistant/utils/constants/models.dart';
 import 'package:trip_assistant/utils/constants/trip.dart';
 
 class UpdateTripPage extends StatefulWidget {
@@ -29,10 +30,14 @@ class UpdateTripPage extends StatefulWidget {
 class _UpdateTripPageState extends State<UpdateTripPage> {
   final _formKey = GlobalKey<FormState>();
 
-  late String _name;
-  late String _destination;
-  late String _purpose;
-  late String _weather;
+  String? _name;
+  String? _destination;
+  String? _purpose;
+  String? _weather;
+
+  Trip? trip;
+
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -41,13 +46,26 @@ class _UpdateTripPageState extends State<UpdateTripPage> {
   }
 
   Future<void> _loadTrip() async {
-    final trip = await widget.controller.readTrip(id: widget.id);
+    trip = await widget.controller.readTrip(id: widget.id);
 
     setState(() {
-      _name = trip.name;
-      _destination = trip.destination;
-      _purpose = trip.purpose;
-      _weather = trip.weather;
+      _name = trip!.name.isEmpty 
+        ? '' 
+        : trip!.name;
+
+      _destination = destinationConditions.contains(trip!.destination)
+          ? trip!.destination
+          : null;
+
+      _purpose = purposeConditions.contains(trip!.purpose)
+          ? trip!.purpose
+          : null;
+
+      _weather = weatherConditions.contains(trip!.weather)
+          ? trip!.weather
+          : null;
+
+      _isLoading = false;
     });
   }
 
@@ -57,154 +75,214 @@ class _UpdateTripPageState extends State<UpdateTripPage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(
-          horizontal: BlockProperties.thinPadding,
-          vertical: BlockProperties.smallPadding,
-        ),
-        child: Form(
-          key: _formKey,
+      body: _isLoading 
+        ? const Center(child: CircularProgressIndicator())
+        : SingleChildScrollView(
+          padding: EdgeInsets.symmetric(
+            vertical: BlockProperties.largePadding,
+            horizontal: BlockProperties.mediumPadding,
+          ),
           child: Column(
             children: [
-              Text(
-                TripUtils.headline,
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
+              Form(
+                key: _formKey,
+                child: Center(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: 500),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: BlockProperties.thinPadding,
+                            horizontal: BlockProperties.smallPadding,
+                          ),
+                          child: Text(
+                            TripUtils.headline,
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.headlineMedium,
+                          ),
+                        ),
 
-              SizedBox(height: BlockProperties.thinPadding),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: BlockProperties.thinPadding,
+                            horizontal: BlockProperties.smallPadding,
+                          ),
+                          child: TextFormField(
+                            initialValue: _name,
+                            decoration: InputDecoration(
+                              border: UnderlineInputBorder(),
+                              labelText: TripNameUtils.label,
+                              hintText: TripNameUtils.hint,
+                            ),
+                            onChanged: (value) => setState(() => _name = value),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return TripNameUtils.emptyError;
+                              }
+                              _name = value;
+                              return null;
+                            },
+                          ),
+                        ),
 
-              /// NAME
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: BlockProperties.thinPadding,
-                  horizontal: BlockProperties.smallPadding,
-                ),
-                child: TextFormField(
-                  initialValue: _name,
-                  decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: TripNameUtils.label,
-                    hintText: TripNameUtils.hint,
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: BlockProperties.thinPadding,
+                            horizontal: BlockProperties.smallPadding,
+                          ),
+                          child: DropdownButtonFormField<String>(
+                            initialValue: _destination,
+                            isExpanded: true,
+                            decoration: InputDecoration(
+                              border: UnderlineInputBorder(),
+                              labelText: TripDestinationUtils.label,
+                              hintText: TripDestinationUtils.hint,
+                            ),
+                            items: destinationConditions.map((destination) {
+                              return DropdownMenuItem<String>(
+                                value: destination,
+                                child: Text(destination),
+                              );
+                            }).toList(),
+                            onChanged: (value) => _destination = value ?? '',
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return TripDestinationUtils.emptyError;
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: BlockProperties.thinPadding,
+                            horizontal: BlockProperties.smallPadding,
+                          ),
+                          child: DropdownButtonFormField<String>(
+                            initialValue: _purpose,
+                            isExpanded: true,
+                            decoration: InputDecoration(
+                              border: UnderlineInputBorder(),
+                              labelText: TripPurposeUtils.label,
+                              hintText: TripPurposeUtils.hint,
+                            ),
+                            items: purposeConditions.map((purpose) {
+                              return DropdownMenuItem<String>(
+                                value: purpose,
+                                child: Text(purpose),
+                              );
+                            }).toList(),
+                            onChanged: (value) => _purpose = value ?? '',
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return TripPurposeUtils.emptyError;
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: BlockProperties.thinPadding,
+                            horizontal: BlockProperties.smallPadding,
+                          ),
+                          child: DropdownButtonFormField<String>(
+                            initialValue: _weather,
+                            isExpanded: true,
+                            decoration: InputDecoration(
+                              border: UnderlineInputBorder(),
+                              labelText: TripWeatherUtils.label,
+                              hintText: TripWeatherUtils.hint,
+                            ),
+                            items: weatherConditions.map((weather) {
+                              return DropdownMenuItem<String>(
+                                value: weather,
+                                child: Text(weather),
+                              );
+                            }).toList(),
+                            onChanged: (value) => _weather = value ?? '',
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return TripWeatherUtils.emptyError;
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: BlockProperties.thinPadding,
+                            horizontal: BlockProperties.smallPadding,
+                          ),
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                try {
+
+                                      // ignore: avoid_print
+                                      print(widget.id);
+                                      // ignore: avoid_print
+                                      print(_name!);
+                                      // ignore: avoid_print
+                                      print(_destination!);
+                                      // ignore: avoid_print
+                                      print(_purpose!);
+                                      // ignore: avoid_print
+                                      print(_weather!);
+
+                                  var tripId = await widget.controller
+                                    .updateTrip(
+                                      id: widget.id,
+                                      name: _name!,
+                                      destination: _destination!,
+                                      purpose: _purpose!,
+                                      weather: _weather!,
+                                    );
+
+                                  if (tripId == "0") {
+                                    // ignore: use_build_context_synchronously
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text(TripUtils.snackError)),
+                                    );
+                                    return;
+                                  }
+
+                                  // ignore: use_build_context_synchronously
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(TripUtils.snackUpdate)),
+                                  );
+
+                                  // ignore: use_build_context_synchronously
+                                  NavigationUtils.navigateBackToTripsPage(context);
+                                } catch (e) {
+                                  // ignore: use_build_context_synchronously
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(TripUtils.snackError)),
+                                  );
+                                }
+                              }
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                vertical: BlockProperties.thinPadding,
+                              ),
+                              child: Text('Submit'),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  onChanged: (value) => _name = value,
-                  validator: (value) =>
-                      value == null || value.isEmpty
-                          ? TripNameUtils.emptyError
-                          : null,
                 ),
-              ),
-
-              /// DESTINATION
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: BlockProperties.thinPadding,
-                  horizontal: BlockProperties.smallPadding,
-                ),
-                child: DropdownButtonFormField<String>(
-                  initialValue: destinationConditions.contains(_destination)
-                      ? _destination
-                      : null,
-                  items: destinationConditions
-                      .toSet()
-                      .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                      .toList(),
-                  onChanged: (value) {
-                    if (value != null) {
-                      setState(() => _destination = value);
-                    }
-                  },
-                  decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: TripDestinationUtils.label,
-                  ),
-                ),
-              ),
-
-              /// PURPOSE
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: BlockProperties.thinPadding,
-                  horizontal: BlockProperties.smallPadding,
-                ),
-                child: DropdownButtonFormField<String>(
-                  initialValue: purposeConditions.contains(_purpose)
-                      ? _purpose
-                      : null,
-                  items: purposeConditions
-                      .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                      .toList(),
-                  onChanged: (value) {
-                    if (value != null) {
-                      setState(() => _purpose = value);
-                    }
-                  },
-                  decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: TripPurposeUtils.label,
-                  ),
-                ),
-              ),
-
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: BlockProperties.thinPadding,
-                  horizontal: BlockProperties.smallPadding,
-                ),
-                child: DropdownButtonFormField<String>(
-                  initialValue: weatherConditions.contains(_weather)
-                      ? _weather
-                      : null,
-                  items: weatherConditions
-                      .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                      .toList(),
-                  onChanged: (value) {
-                    if (value != null) {
-                      setState(() => _weather = value);
-                    }
-                  },
-                  decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: TripWeatherUtils.label,
-                  ),
-                ),
-              ),
-
-              ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    final id = await widget.controller.updateTrip(
-                      id: widget.id,
-                      name: _name,
-                      destination: _destination,
-                      purpose: _purpose,
-                      weather: _weather,
-                    );
-
-                    if (id.isEmpty) {
-                        // ignore: use_build_context_synchronously
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(TripUtils.snackError)),
-                      );
-                    }
-                      // ignore: use_build_context_synchronously
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(TripUtils.snackUpdate)),
-                    );
-
-                    NavigationUtils.navigateBackToTripPage(
-                      // ignore: use_build_context_synchronously
-                      context,
-                      id: widget.id,
-                      title: widget.title,
-                    );
-                  }
-                },
-                child: Text('Submit'),
               ),
             ],
           ),
         ),
-      ),
     );
   }
 }

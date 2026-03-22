@@ -43,87 +43,93 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: BlockProperties.mediumPadding),
             Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: BlockProperties.thinPadding, 
-                      horizontal: BlockProperties.smallPadding
-                    ),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: EmailUtils.label,
-                      ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return EmailUtils.emptyError;
-                        }
-                        if (!EmailUtils.regexValidator.hasMatch(value)) {
-                          return EmailUtils.matchError;
-                        }
-                        return null;
-                      },
+                key: _formKey,
+                child: Center(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: 500),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: BlockProperties.thinPadding, 
+                            horizontal: BlockProperties.smallPadding
+                          ),
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              border: UnderlineInputBorder(),
+                              labelText: EmailUtils.label,
+                            ),
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return EmailUtils.emptyError;
+                              }
+                              if (!EmailUtils.regexValidator.hasMatch(value)) {
+                                return EmailUtils.matchError;
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: BlockProperties.thinPadding, 
+                            horizontal: BlockProperties.smallPadding
+                          ),
+                          child: TextFormField(
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              border: UnderlineInputBorder(),
+                              labelText: PasswordUtils.label,
+                            ),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(PasswordUtils.regexFormatter),
+                              LengthLimitingTextInputFormatter(PasswordUtils.maxLength),
+                            ],
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return PasswordUtils.emptyError;
+                              }
+                              if (value.length < PasswordUtils.minLength) {
+                                return PasswordUtils.lengthError;
+                              }
+                              if (!PasswordUtils.regexValidator.hasMatch(value)) {
+                                return PasswordUtils.matchError;
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        SizedBox(height: BlockProperties.thinPadding),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text("Don't have an account? "),
+                            TextButton(
+                              onPressed: () {
+                                NavigationUtils.navigateBack(context);
+                                NavigationUtils.navigateToSignUpPage(context);
+                              },
+                              child: const Text("Sign up"),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: BlockProperties.smallPadding),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                NavigationUtils.navigateToUserTrips(context);
+                              }
+                            }, 
+                            child: Text('Sign in')
+                          ),
+                        ),
+                      ]
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: BlockProperties.thinPadding, 
-                      horizontal: BlockProperties.smallPadding
-                    ),
-                    child: TextFormField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: PasswordUtils.label,
-                      ),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(PasswordUtils.regexFormatter),
-                        LengthLimitingTextInputFormatter(PasswordUtils.maxLength),
-                      ],
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return PasswordUtils.emptyError;
-                        }
-                        if (value.length < PasswordUtils.minLength) {
-                          return PasswordUtils.lengthError;
-                        }
-                        if (!PasswordUtils.regexValidator.hasMatch(value)) {
-                          return PasswordUtils.matchError;
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  SizedBox(height: BlockProperties.thinPadding),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("Don't have an account? "),
-                      TextButton(
-                        onPressed: () {
-                          NavigationUtils.navigateBack(context);
-                          NavigationUtils.navigateToSignUpPage(context);
-                        },
-                        child: const Text("Sign up"),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: BlockProperties.smallPadding),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          NavigationUtils.navigateToUserTrips(context);
-                        }
-                      }, 
-                      child: Text('Sign in')
-                    ),
-                  ),
-                ]
-              ),
+                ),
             ),
           ],
         ),
