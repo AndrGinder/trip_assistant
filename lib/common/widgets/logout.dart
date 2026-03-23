@@ -21,28 +21,29 @@ class LogoutButton extends StatelessWidget{
         color: Colors.white,
       ),
       onPressed: () async {
-        try{
-          await authService.value.signOut();
+          try{
+            await authService.value.signOut();
 
-          // ignore: use_build_context_synchronously
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(AuthUtils.snackSignOut)
-            ),
-          ); 
+            // ignore: use_build_context_synchronously
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(AuthUtils.snackSignOut)
+              ),
+            ); 
 
-          // ignore: use_build_context_synchronously
-          NavigationUtils.navigateBackToSignInPage(context);
-        }
-        on FirebaseAuthException catch(e){
-          // ignore: use_build_context_synchronously
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(e.message ?? AuthUtils.snackError)
-            ),
-          );
-        }
-      },
+            // ignore: use_build_context_synchronously
+            NavigationUtils.navigateBackToSignInPage(context);
+          }
+          on FirebaseAuthException catch(e){
+            // ignore: use_build_context_synchronously
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(e.message ?? AuthUtils.snackError)
+              ),
+            );
+          }
+        },
+      )
     );
   }
 }
