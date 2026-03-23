@@ -57,3 +57,10 @@ class TripUtils {
   static final String snackUpdate = "Trip updated successfully!";
   static final String snackError = "Something went wrong. Please try again.";
 }
+
+class AuthUtils {
+  static final String snackSignUp = "You are succesfully signed up!";
+  static final String snackSignIn = "You are succesfully signed in!";
+  static final String snackSignOut = "You are succesfully signed out!";
+  static final String snackError = "Something went wrong. Please try again.";
+}

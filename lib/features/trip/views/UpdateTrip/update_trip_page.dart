@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trip_assistant/common/styles/styles.dart';
+import 'package:trip_assistant/common/widgets/logout.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
 import 'package:trip_assistant/features/trip/controllers/update_trip_page_controller.dart';
 import 'package:trip_assistant/features/trip/repositories/readTrip/read_trip.dart';
@@ -74,6 +75,7 @@ class _UpdateTripPageState extends State<UpdateTripPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [ LogoutButton() ],
       ),
       body: _isLoading 
         ? const Center(child: CircularProgressIndicator())

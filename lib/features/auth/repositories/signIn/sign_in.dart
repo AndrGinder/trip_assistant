@@ -1,4 +1,4 @@
-import 'package:trip_assistant/features/user/repositories/signIn/i_sign_in.dart';
+import 'package:trip_assistant/features/auth/repositories/signIn/i_sign_in.dart';
 import 'package:trip_assistant/utils/constants/models.dart';
 
 class SignIn implements ISignIn {

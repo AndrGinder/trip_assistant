@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:trip_assistant/features/user/views/Login/login.dart';
+import 'package:trip_assistant/features/auth/views/Login/login.dart';
 import 'package:trip_assistant/utils/theme/theme.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform
+  );
+
   runApp(const MyApp());
 }
 
@@ -18,16 +25,6 @@ class MyApp extends StatelessWidget {
       theme: TripAssistantTheme.light,
       darkTheme: TripAssistantTheme.dark,
       home: const LoginPage(title: 'Trip Assistant'),
-      // routes: {
-      //   '/': (context) => const StartPage(title: "Trip Assistant"),
-      //   '/signin': (context) => const LoginPage(title: 'Sign in'),
-      //   '/signup': (context) => const SignUpPage(title: 'Sign up'),
-      //   '/trips' : (context) => const TripsPage(title: 'My Trips'),
-      //   '/trip/add' : (context) => const AddTripPage(title: 'Add new Trip'),
-      //   '/trip/edit' : (context) => const EditTripPage(title: 'Edit Trip'),
-      //   '/trip/{id}' : (context) => const TripPage(title: 'Edit Trip'),
-      //   '/trip/item/{id}' : (context) => const TripPage(title: 'Edit Trip'),
-      // },
     );
   }
 }

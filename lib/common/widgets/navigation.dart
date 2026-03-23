@@ -4,8 +4,8 @@ import 'package:trip_assistant/features/trip/views/UpdateTrip/update_trip_page.d
 import 'package:trip_assistant/features/trip/views/SubmitItem/submititempage.dart';
 import 'package:trip_assistant/features/trip/views/TripPage/trip_page.dart';
 import 'package:trip_assistant/features/trip/views/TripsPage/trips_page.dart';
-import 'package:trip_assistant/features/user/views/Login/login.dart';
-import 'package:trip_assistant/features/user/views/SignUp/signup.dart';
+import 'package:trip_assistant/features/auth/views/Login/login.dart';
+import 'package:trip_assistant/features/auth/views/SignUp/signup.dart';
 
 abstract class NavigationUtils {
   static void navigateBack(BuildContext context) => Navigator.pop(context);
@@ -23,6 +23,14 @@ abstract class NavigationUtils {
     context,
     MaterialPageRoute<void>(
       builder: (context) => const SignUpPage(title: 'Trip Assistant'),
+    ),
+  );
+
+  static void navigateBackToSignInPage(BuildContext context)
+    => Navigator.push(
+    context,
+    MaterialPageRoute<void>(
+      builder: (context) => const LoginPage(title: 'Trip Assistant'),
     ),
   );
 

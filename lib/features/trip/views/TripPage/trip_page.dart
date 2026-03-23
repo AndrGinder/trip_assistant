@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:trip_assistant/common/styles/styles.dart';
+import 'package:trip_assistant/common/widgets/logout.dart';
 import 'package:trip_assistant/features/trip/controllers/trip_page_controller.dart';
 import 'package:trip_assistant/features/trip/repositories/deleteTripItem/delete_trip_item.dart';
 import 'package:trip_assistant/features/trip/repositories/filterTripItems/filter_trip_items.dart';
@@ -57,6 +58,7 @@ class _TripPageState extends State<TripPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_model.title),
+        actions: [ LogoutButton() ],
       ),
       body: _isLoading
         ? const Center(child: CircularProgressIndicator())
