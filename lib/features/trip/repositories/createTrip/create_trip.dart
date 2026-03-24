@@ -1,8 +1,12 @@
+import 'package:trip_assistant/features/auth/services/auth_service.dart';
 import 'package:trip_assistant/features/trip/repositories/createTrip/i_create_trip.dart';
+import 'package:trip_assistant/features/trip/servers/trip_service.dart';
 import 'package:trip_assistant/utils/constants/models.dart';
-import 'package:trip_assistant/utils/constants/trip.dart';
+// import 'package:trip_assistant/utils/constants/trip.dart';
 
 class CreateTrip implements ICreateTrip {
+  TripService service = TripService();
+
   @override
   Future<String> createRecord({
     required String name,
@@ -11,15 +15,19 @@ class CreateTrip implements ICreateTrip {
     required String weather,
   }) async {
     Trip newTrip = Trip(
-      userId: "user1", 
+      userId: authService.value.currentUser!.uid, 
       name: name, 
       destination: destination, 
       purpose: purpose, 
       weather: weather
     );
     
-    trips.add(newTrip);
+    return await service.create(trip: newTrip);
 
-    return newTrip.id;
+    //local api
+    
+    // trips.add(newTrip);
+
+    // return newTrip.id;
   }
 }

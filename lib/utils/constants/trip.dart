@@ -1,13 +1,13 @@
 import 'package:trip_assistant/utils/constants/models.dart';
 
 var trips = <Trip>[
-  Trip(userId: "user1", name: "Budapest B2B Conference", destination: '', purpose: '', weather: ''),
-  Trip(userId: "user1", name: "Date with Angela at Marconi`s", destination: '', purpose: '', weather: ''),
-  Trip(userId: "user1", name: "Buy new shoes", destination: '', purpose: '', weather: ''),
-  Trip(userId: "user1", name: "Buy products", destination: '', purpose: '', weather: ''),
-  Trip(userId: "user1", name: "Date with Angela at Marconi`s", destination: '', purpose: '', weather: ''),
-  Trip(userId: "user1", name: "Wash car", destination: '', purpose: '', weather: ''),
-  Trip(userId: "user1", name: "Daily meeting", destination: '', purpose: '', weather: ''),
+  // Trip(userId: "user1", name: "Budapest B2B Conference", destination: '', purpose: '', weather: ''),
+  // Trip(userId: "user1", name: "Date with Angela at Marconi`s", destination: '', purpose: '', weather: ''),
+  // Trip(userId: "user1", name: "Buy new shoes", destination: '', purpose: '', weather: ''),
+  // Trip(userId: "user1", name: "Buy products", destination: '', purpose: '', weather: ''),
+  // Trip(userId: "user1", name: "Date with Angela at Marconi`s", destination: '', purpose: '', weather: ''),
+  // Trip(userId: "user1", name: "Wash car", destination: '', purpose: '', weather: ''),
+  // Trip(userId: "user1", name: "Daily meeting", destination: '', purpose: '', weather: ''),
 ];
 
 List<TripItem> tripItems = <TripItem>[

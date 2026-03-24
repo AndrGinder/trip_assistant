@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:trip_assistant/common/styles/styles.dart';
 import 'package:trip_assistant/common/widgets/logout.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
-import 'package:trip_assistant/features/trip/controllers/update_trip_page_controller.dart';
-import 'package:trip_assistant/features/trip/repositories/readTrip/read_trip.dart';
-import 'package:trip_assistant/features/trip/repositories/updateTrip/update_trip.dart';
+import 'package:trip_assistant/features/auth/services/auth_service.dart';
+import 'package:trip_assistant/features/trip/controllers/trip_controller.dart';
+import 'package:trip_assistant/features/trip/servers/trip_service.dart';
 import 'package:trip_assistant/utils/constants/form.dart';
 import 'package:trip_assistant/utils/constants/models.dart';
 import 'package:trip_assistant/utils/constants/trip.dart';
@@ -13,10 +13,7 @@ class UpdateTripPage extends StatefulWidget {
   final String id;
   final String title;
 
-  final UpdateTripPageController controller = UpdateTripPageController(
-    updateTripService: UpdateTrip(),
-    readTripService: ReadTrip(),
-  );
+  final TripController controller = TripController(TripService());
 
   UpdateTripPage({
     super.key,
@@ -36,8 +33,6 @@ class _UpdateTripPageState extends State<UpdateTripPage> {
   String? _purpose;
   String? _weather;
 
-  Trip? trip;
-
   bool _isLoading = true;
 
   @override
@@ -47,24 +42,24 @@ class _UpdateTripPageState extends State<UpdateTripPage> {
   }
 
   Future<void> _loadTrip() async {
-    trip = await widget.controller.readTrip(id: widget.id);
+    Trip? trip = await widget.controller.getTrip(widget.id);
 
     setState(() {
       _name = trip!.name.isEmpty 
         ? '' 
-        : trip!.name;
+        : trip.name;
 
-      _destination = destinationConditions.contains(trip!.destination)
-          ? trip!.destination
-          : null;
+      _destination = destinationConditions.contains(trip.destination)
+        ? trip.destination
+        : null;
 
-      _purpose = purposeConditions.contains(trip!.purpose)
-          ? trip!.purpose
-          : null;
+      _purpose = purposeConditions.contains(trip.purpose)
+        ? trip.purpose
+        : null;
 
-      _weather = weatherConditions.contains(trip!.weather)
-          ? trip!.weather
-          : null;
+      _weather = weatherConditions.contains(trip.weather)
+        ? trip.weather
+        : null;
 
       _isLoading = false;
     });
@@ -237,22 +232,16 @@ class _UpdateTripPageState extends State<UpdateTripPage> {
                                       // ignore: avoid_print
                                       print(_weather!);
 
-                                  var tripId = await widget.controller
-                                    .updateTrip(
+                                  await widget.controller.updateTrip(
+                                    Trip(
                                       id: widget.id,
+                                      userId: authService.value.currentUser!.uid,
                                       name: _name!,
                                       destination: _destination!,
                                       purpose: _purpose!,
                                       weather: _weather!,
-                                    );
-
-                                  if (tripId == "0") {
-                                    // ignore: use_build_context_synchronously
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text(TripUtils.snackError)),
-                                    );
-                                    return;
-                                  }
+                                    )
+                                  );
 
                                   // ignore: use_build_context_synchronously
                                   ScaffoldMessenger.of(context).showSnackBar(

@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:trip_assistant/common/styles/styles.dart';
 import 'package:trip_assistant/common/widgets/logout.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
-import 'package:trip_assistant/features/trip/controllers/create_trip_page_controller.dart';
-import 'package:trip_assistant/features/trip/repositories/createTrip/create_trip.dart';
+import 'package:trip_assistant/features/auth/services/auth_service.dart';
+import 'package:trip_assistant/features/trip/controllers/trip_controller.dart';
+import 'package:trip_assistant/features/trip/servers/trip_service.dart';
 import 'package:trip_assistant/utils/constants/form.dart';
+import 'package:trip_assistant/utils/constants/models.dart';
 import 'package:trip_assistant/utils/constants/trip.dart';
 
 class CreateTripPage extends StatefulWidget {
   final String title;
 
-  final CreateTripPageController controller = CreateTripPageController(
-    createTripService: CreateTrip(),
-  );
+  final TripController controller = TripController(TripService());
 
   CreateTripPage({
     super.key,
@@ -179,21 +179,14 @@ class _CreateTripPageState extends State<CreateTripPage> {
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             try {
-                              var tripId = await widget.controller
-                                .createRecord(
+                              await widget.controller
+                                .createTrip( Trip(
+                                  userId: authService.value.currentUser!.uid,
                                   name: _name,
                                   destination: _destination,
                                   purpose: _purpose,
                                   weather: _weather,
-                                );
-
-                              if (tripId == "0") {
-                                // ignore: use_build_context_synchronously
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text(TripUtils.snackError)),
-                                );
-                                return;
-                              }
+                                ));
 
                               // ignore: use_build_context_synchronously
                               ScaffoldMessenger.of(context).showSnackBar(

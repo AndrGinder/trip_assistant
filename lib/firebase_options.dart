@@ -46,6 +46,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '37943352105',
     projectId: 'trip-assistant-b04f5',
     authDomain: 'trip-assistant-b04f5.firebaseapp.com',
+    databaseURL: 'https://trip-assistant-b04f5-default-rtdb.firebaseio.com',
     storageBucket: 'trip-assistant-b04f5.firebasestorage.app',
     measurementId: 'G-FYQHLZSYRN',
   );
@@ -55,6 +56,7 @@ class DefaultFirebaseOptions {
     appId: '1:37943352105:android:e2ad4bc66ae7284e4a7538',
     messagingSenderId: '37943352105',
     projectId: 'trip-assistant-b04f5',
+    databaseURL: 'https://trip-assistant-b04f5-default-rtdb.firebaseio.com',
     storageBucket: 'trip-assistant-b04f5.firebasestorage.app',
   );
 
@@ -63,6 +65,7 @@ class DefaultFirebaseOptions {
     appId: '1:37943352105:ios:042cbdef9034b4944a7538',
     messagingSenderId: '37943352105',
     projectId: 'trip-assistant-b04f5',
+    databaseURL: 'https://trip-assistant-b04f5-default-rtdb.firebaseio.com',
     storageBucket: 'trip-assistant-b04f5.firebasestorage.app',
     iosBundleId: 'com.example.tripAssistant',
   );
@@ -72,6 +75,7 @@ class DefaultFirebaseOptions {
     appId: '1:37943352105:ios:042cbdef9034b4944a7538',
     messagingSenderId: '37943352105',
     projectId: 'trip-assistant-b04f5',
+    databaseURL: 'https://trip-assistant-b04f5-default-rtdb.firebaseio.com',
     storageBucket: 'trip-assistant-b04f5.firebasestorage.app',
     iosBundleId: 'com.example.tripAssistant',
   );
@@ -82,7 +86,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '37943352105',
     projectId: 'trip-assistant-b04f5',
     authDomain: 'trip-assistant-b04f5.firebaseapp.com',
+    databaseURL: 'https://trip-assistant-b04f5-default-rtdb.firebaseio.com',
     storageBucket: 'trip-assistant-b04f5.firebasestorage.app',
     measurementId: 'G-TTZDNP3JRQ',
   );
+
 }

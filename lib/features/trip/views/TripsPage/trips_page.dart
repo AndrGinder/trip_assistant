@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:trip_assistant/common/widgets/logout.dart';
-import 'package:trip_assistant/features/trip/controllers/trips_page_controller.dart';
-import 'package:trip_assistant/features/trip/repositories/deleteTrip/delete_trip.dart';
-import 'package:trip_assistant/features/trip/repositories/filterTrip/filter_trips.dart';
+import 'package:trip_assistant/features/trip/controllers/trip_controller.dart';
+import 'package:trip_assistant/features/trip/servers/trip_service.dart';
 import 'package:trip_assistant/features/trip/views/TripsPage/trip_card.dart';
 import 'package:trip_assistant/common/styles/styles.dart';
 import 'package:trip_assistant/utils/constants/models.dart';
@@ -12,10 +11,7 @@ import 'package:trip_assistant/common/widgets/navigation.dart';
 class TripsPage extends StatefulWidget {
   final String title;
 
-  final TripsPageController controller = TripsPageController(
-    filterTripsService: FilterTrips(),
-    deleteTripService: DeleteTrip(),
-  );
+  final TripController controller = TripController(TripService());
 
   TripsPage({
     super.key,
@@ -39,8 +35,7 @@ class _TripsPageState extends State<TripsPage> {
   }
 
   Future<void> _loadTrips() async {
-    final data = await widget.controller
-      .loadTrips("user1");
+    final data = await widget.controller.getTrips();
 
     setState(() {
       _trips = data;

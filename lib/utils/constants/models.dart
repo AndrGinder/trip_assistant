@@ -3,69 +3,80 @@ import 'package:uuid/uuid.dart';
 
 const uuid = Uuid();
 
-class User{
-  String id = uuid.v4();
-  String name;
-  String email;
-  String passwordHash;
-
-  User({
-    required this.name,
-    required this.email,
-    required this.passwordHash
-  });
-}
-
-class Trip{
-  String id = uuid.v4();
-  String userId;
-  String name;
-  String destination;
-  String purpose;
-  String weather;
+class Trip {
+  final String id;
+  final String userId;
+  final String name;
+  final String destination;
+  final String purpose;
+  final String weather;
 
   Trip({
+    String? id,
     required this.userId,
     required this.name,
     required this.destination,
     required this.purpose,
     required this.weather,
-  });
+  }) : id = id ?? uuid.v4();
+
+  Map<String, dynamic> toJson() => {
+    'userId': userId,
+    'name': name,
+    'destination': destination,
+    'purpose': purpose,
+    'weather': weather,
+  };
+
+  factory Trip.fromJson(String id, Map<String, dynamic> json) {
+    return Trip(
+      id: id,
+      userId: json['userEmail'] ?? '',
+      name: json['name'] ?? '',
+      destination: json['destination'] ?? '',
+      purpose: json['purpose'] ?? '',
+      weather: json['weather'] ?? '',
+    );
+  }
 }
 
-class TripItem{
-  String id = uuid.v4();
-  String name;
-  // Image? screen;
-  String tripId;
-  TripItemState state = TripItemState.unchecked;
+class TripItem {
+  final String id;
+  final String name;
+  final String tripId;
+  final TripItemState state;
 
   TripItem({
-    required this.name, 
+    String? id,
+    required this.name,
     required this.tripId,
-  });
+    this.state = TripItemState.unchecked,
+  }) : id = id ?? uuid.v4();
 
-  void setScreen(
-   // {Image? value}
-  )
-  {
-    // if(image != null){
-    //   screen = value;
-    // }
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'name': name,
+    'tripId': tripId,
+  };
+
+  factory TripItem.fromJson(String id, Map<String, dynamic> json) {
+    return TripItem(
+      id: id,
+      name: json['name'] ?? '',
+      tripId: json['destination'] ?? '',
+    );
   }
 
-  void setState(TripItemState value){
-    state = value;
-
-    // switch(action){
-    //   case "Check":
-    //     state = TripItemState.checked;
-    //     break;
-    //   case "Exclude":
-    //     state = TripItemState.excluded;
-    //     break;
-    //   default:
-    //     state = TripItemState.unchecked;
-    // }
+  TripItem copyWith({
+    String? name,
+    String? tripId,
+    TripItemState? state,
+  }) {
+    return TripItem(
+      id: id,
+      name: name ?? this.name,
+      tripId: tripId ?? this.tripId,
+      state: state ?? this.state,
+    );
   }
 }

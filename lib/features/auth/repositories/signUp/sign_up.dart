@@ -1,4 +1,4 @@
-import 'package:trip_assistant/features/user/repositories/SignUp/i_sign_up.dart';
+import 'package:trip_assistant/features/auth/repositories/signUp/i_sign_up.dart';
 
 class SignUp implements ISignUp {
   @override
