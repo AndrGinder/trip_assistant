@@ -17,7 +17,10 @@ class TripPage extends StatefulWidget {
   final String id;
   final String title;
 
-  final TripController tripController = TripController(TripService());
+  final TripController tripController = TripController(
+    tripService: TripService(), 
+    tripItemService: TripItemService()
+  );
   final TripItemController itemController =
       TripItemController(TripItemService());
 

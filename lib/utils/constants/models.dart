@@ -66,17 +66,18 @@ class TripItem {
       tripId: json['destination'] ?? '',
     );
   }
+}
 
-  TripItem copyWith({
-    String? name,
-    String? tripId,
-    TripItemState? state,
-  }) {
-    return TripItem(
-      id: id,
-      name: name ?? this.name,
-      tripId: tripId ?? this.tripId,
-      state: state ?? this.state,
-    );
-  }
+class TripItemTemplate {
+  final String name;
+  final List<String> destinations;
+  final List<String> purposes;
+  final List<String> weathers;
+
+  TripItemTemplate({
+    required this.name,
+    this.destinations = const [],
+    this.purposes = const [],
+    this.weathers = const [],
+  });
 }

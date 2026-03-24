@@ -11,7 +11,9 @@ import 'package:trip_assistant/common/widgets/navigation.dart';
 class TripsPage extends StatefulWidget {
   final String title;
 
-  final TripController controller = TripController(TripService());
+  final TripController controller = TripController(
+    tripService: TripService(),
+  );
 
   TripsPage({
     super.key,

@@ -4,6 +4,7 @@ import 'package:trip_assistant/common/widgets/logout.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
 import 'package:trip_assistant/features/auth/services/auth_service.dart';
 import 'package:trip_assistant/features/trip/controllers/trip_controller.dart';
+import 'package:trip_assistant/features/trip/servers/trip_item_service.dart';
 import 'package:trip_assistant/features/trip/servers/trip_service.dart';
 import 'package:trip_assistant/utils/constants/form.dart';
 import 'package:trip_assistant/utils/constants/models.dart';
@@ -13,7 +14,10 @@ class UpdateTripPage extends StatefulWidget {
   final String id;
   final String title;
 
-  final TripController controller = TripController(TripService());
+  final TripController controller = TripController(
+    tripService: TripService(),
+    tripItemService: TripItemService(),
+  );
 
   UpdateTripPage({
     super.key,
