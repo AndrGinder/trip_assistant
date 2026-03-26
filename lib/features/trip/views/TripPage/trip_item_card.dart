@@ -18,14 +18,18 @@ class TripItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tile = ListTile(
+      tileColor: isDragging
+        ? Colors.blueGrey.shade100
+        : null,
+      title: Text(title),
+    );
+
     return Opacity(
-      opacity: isDragging ? BlockProperties.zeroOpacity : 1,
-      child: ListTile(
-        tileColor: isDragging
-          ? Colors.blueGrey.shade100
-          : null,
-        title: Text(title),
-      ),
+      opacity: isDragging 
+        ? BlockProperties.zeroOpacity 
+        : 1,
+      child: tile,
     );
   }
 }

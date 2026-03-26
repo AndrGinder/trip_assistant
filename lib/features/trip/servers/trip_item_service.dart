@@ -1,72 +1,112 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:trip_assistant/utils/constants/models.dart';
+import 'package:flutter/material.dart';
 import 'package:trip_assistant/utils/constants/trip.dart';
+import '../models/trip_item.dart';
 
 class TripItemService {
-  final _db = FirebaseFirestore.instance;
+  final _trips = FirebaseFirestore.instance.collection('trips');
 
-  CollectionReference<Map<String, dynamic>> _itemsRef(String tripId) {
-    return _db.collection('trips').doc(tripId).collection('items');
-  }
-  
-  Future<String> create({
-    required TripItem item
+  Stream<List<TripItem>> watchTripItems(String tripId) {
+  return _trips
+      .doc(tripId)
+      .collection('items')
+      .orderBy('name')
+      .snapshots()
+      .map((snapshot) {
+        debugPrint("Items count: ${snapshot.docs.length}");
+
+        return snapshot.docs
+            .map((doc) => TripItem.fromMap(doc.data(), doc.id, tripId))
+            .toList();
+      });
+}
+
+  Future<List<TripItem>> getItemsForTrip({
+    required String id,
+    required String purpose,
+    required String destination,
+    required String weather,
   }) async {
-    await _itemsRef(item.tripId).doc(item.id).set(item.toJson());
+    final filteredItems = allItems.where((template) {
+      final matchesPurpose = template.purposes.isEmpty || purposeConditions.contains(purpose);
+      final matchesDestination = template.destinations.isEmpty || destinationConditions.contains(destination);
+      final matchesWeather = template.weathers.isEmpty || weatherConditions.contains(weather);
 
-    return item.id;
-  }
+      return matchesPurpose && matchesDestination && matchesWeather;
+    }).toList();
 
-  Future<List<TripItem>> filter({
-    required String tripId,
-  }) async {
-    final snapshot = await _itemsRef(tripId).get();
-
-    return snapshot.docs
-        .map((doc) => TripItem.fromJson(doc.id, doc.data()))
-        .toList();
-  }
-
-  List<TripItem> selectItems(Trip trip) {
-    final destination = trip.destination.toLowerCase();
-    final purpose = trip.purpose.toLowerCase();
-    final weather = trip.weather.toLowerCase();
-
-    return allItems.where((item) {
-      final matchesDestination = item.destinations.isEmpty ||
-          item.destinations.contains(destination);
-
-      final matchesPurpose = item.purposes.isEmpty ||
-          item.purposes.contains(purpose);
-
-      final matchesWeather = item.weathers.isEmpty ||
-          item.weathers.contains(weather);
-
-      return matchesDestination && matchesPurpose && matchesWeather;
-    }).map((item) {
+    return filteredItems.map((item) {
       return TripItem(
+        id: '',
         name: item.name,
-        tripId: trip.id,
+        tripId: id,
       );
     }).toList();
   }
 
-  Future<String> update({
-    required TripItem item,
-  }) async {    
-    await _itemsRef(item.tripId)
-      .doc(item.id)
-      .update(item.toJson());
+  Future<List<TripItem>> getTripItems(String tripId) async {
+    final snapshot = await _trips
+      .doc(tripId)
+      .collection('items')
+      .get();
 
-    return item.id;
+    final list = snapshot.docs.map((doc) => TripItem.fromMap(doc.data(), tripId, doc.id)).toList();
+    debugPrint("Item: ${list[0].tripId}");
+    return snapshot.docs.map((doc) => TripItem.fromMap(doc.data(), tripId, doc.id)).toList();
   }
 
-  Future<String> delete({
-    required String id,
-    required String tripId,
-  }) async {
-    await _itemsRef(tripId).doc(id).delete();
+  Future<TripItem> addTripItem(String tripId, TripItem item) async {
+    final docRef =
+        await _trips.doc(tripId).collection('items').add(item.toMap());
+    return item.copyWith(id: docRef.id);
+  }
+  
+  Future<void> addItemsToTrip(
+    String tripId,
+    List<TripItem> items,
+  ) async {
+    final collection = _trips
+        .doc(tripId)
+        .collection('items');
 
-    return id;
+    final batch = FirebaseFirestore.instance.batch();
+
+    for (final item in items) {
+      final doc = collection.doc();
+
+      final itemToSave = item.copyWith(
+        id: doc.id,
+        tripId: tripId,
+      );
+
+      batch.set(doc, itemToSave.toMap());
+    }
+
+    await batch.commit();
+  }
+
+  Future<void> updateTripItem(String tripId, TripItem item) async {
+    await _trips.doc(tripId).collection('items').doc(item.id).update(item.toMap());
+  }
+
+  Future<void> deleteTripItem(String itemId, String tripId) async {
+    await _trips.doc(tripId).collection('items').doc(itemId).delete();
+  }
+
+  Future<void> deleteItems(
+    String tripId,
+    List<TripItem> items,
+  ) async {
+    final batch = FirebaseFirestore.instance.batch();
+
+    final collection = _trips
+        .doc(tripId)
+        .collection('items');
+
+    for (final item in items) {
+      batch.delete(collection.doc(item.id));
+    }
+
+    await batch.commit();
   }
 }

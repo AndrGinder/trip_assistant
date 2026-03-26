@@ -1,63 +1,28 @@
-import 'package:trip_assistant/utils/constants/models.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uuid/uuid.dart';
 
-var trips = <Trip>[
-  // Trip(userId: "user1", name: "Budapest B2B Conference", destination: '', purpose: '', weather: ''),
-  // Trip(userId: "user1", name: "Date with Angela at Marconi`s", destination: '', purpose: '', weather: ''),
-  // Trip(userId: "user1", name: "Buy new shoes", destination: '', purpose: '', weather: ''),
-  // Trip(userId: "user1", name: "Buy products", destination: '', purpose: '', weather: ''),
-  // Trip(userId: "user1", name: "Date with Angela at Marconi`s", destination: '', purpose: '', weather: ''),
-  // Trip(userId: "user1", name: "Wash car", destination: '', purpose: '', weather: ''),
-  // Trip(userId: "user1", name: "Daily meeting", destination: '', purpose: '', weather: ''),
-];
+const uuid = Uuid();
 
-List<TripItem> tripItems = <TripItem>[
-  TripItem(name: "Towel", tripId: "1"),
-  TripItem(name: "Toothbrush", tripId: "1"),
-  TripItem(name: "Shampoo", tripId: "1"),
-  TripItem(name: "Shaving kit", tripId: "1"),
-  TripItem(name: "Clothes", tripId: "1"),
-  TripItem(name: "Shoes", tripId: "1"),
-];
+FirebaseFirestore db = FirebaseFirestore.instance;
 
-var destinationConditions = ['Beach', 'Mountain', 'City', 'Countryside'];
-var purposeConditions = ['Leisure', 'Business', 'Education', 'Other'];
-var weatherConditions = ['Sunny', 'Rainy', 'Cloudy', 'Snowy'];
+final String tripCollection = 'trips';
+final String itemCollection = 'items';
 
-enum Location{
-  city,
-  urban,
-  cityUrban,
-  sea,
-  beach,
-  seaBeach,
-  mountains,
-  camp,
-  mountainsCamp,
-  otherCountry
+final String userIdProp = 'userId';
+
+class TripItemTemplate {
+  final String name;
+  final List<String> destinations;
+  final List<String> purposes;
+  final List<String> weathers;
+
+  TripItemTemplate({
+    required this.name,
+    this.destinations = const [],
+    this.purposes = const [],
+    this.weathers = const [],
+  });
 }
-
-enum Purpose{
-  tourism,
-  workTrip,
-  activeRelax,
-  relax,
-  spa,
-}
-
-enum Weather{
-  hot,
-  cold,
-  rain,
-  coldRain,
-  relax,
-  spa,
-}
-
-// enum TripConditionType{
-//   destination,
-//   weather,
-//   purpose,
-// }
 
 enum TripItemState{
   unchecked,
@@ -242,3 +207,62 @@ final List<TripItemTemplate> allItems = [
     purposes: ['leisure'],
   ),
 ];
+
+// var trips = <Trip>[
+//   Trip(userId: "user1", name: "Budapest B2B Conference", destination: '', purpose: '', weather: ''),
+//   Trip(userId: "user1", name: "Date with Angela at Marconi`s", destination: '', purpose: '', weather: ''),
+//   Trip(userId: "user1", name: "Buy new shoes", destination: '', purpose: '', weather: ''),
+//   Trip(userId: "user1", name: "Buy products", destination: '', purpose: '', weather: ''),
+//   Trip(userId: "user1", name: "Date with Angela at Marconi`s", destination: '', purpose: '', weather: ''),
+//   Trip(userId: "user1", name: "Wash car", destination: '', purpose: '', weather: ''),
+//   Trip(userId: "user1", name: "Daily meeting", destination: '', purpose: '', weather: ''),
+// ];
+
+// List<TripItem> tripItems = <TripItem>[
+//   TripItem(name: "Towel", tripId: "1"),
+//   TripItem(name: "Toothbrush", tripId: "1"),
+//   TripItem(name: "Shampoo", tripId: "1"),
+//   TripItem(name: "Shaving kit", tripId: "1"),
+//   TripItem(name: "Clothes", tripId: "1"),
+//   TripItem(name: "Shoes", tripId: "1"),
+// ];
+
+var destinationConditions = ['Beach', 'Mountain', 'City', 'Countryside'];
+var purposeConditions = ['Leisure', 'Business', 'Education', 'Other'];
+var weatherConditions = ['Sunny', 'Rainy', 'Cloudy', 'Snowy'];
+
+// enum Location{
+//   city,
+//   urban,
+//   cityUrban,
+//   sea,
+//   beach,
+//   seaBeach,
+//   mountains,
+//   camp,
+//   mountainsCamp,
+//   otherCountry
+// }
+
+// enum Purpose{
+//   tourism,
+//   workTrip,
+//   activeRelax,
+//   relax,
+//   spa,
+// }
+
+// enum Weather{
+//   hot,
+//   cold,
+//   rain,
+//   coldRain,
+//   relax,
+//   spa,
+// }
+
+// enum TripConditionType{
+//   destination,
+//   weather,
+//   purpose,
+// }

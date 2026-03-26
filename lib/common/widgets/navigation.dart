@@ -94,20 +94,20 @@ abstract class NavigationUtils {
     Navigator.push(
       context,
       MaterialPageRoute<void>(
-        builder: (context) => CreateTripPage(title: 'Add new Trip'),
+        builder: (context) => AddTripPage(title: 'Add new Trip'),
       ),
     );
   }
   
   static void navigateToEditTripPage(BuildContext context, {
-    required String id,
-    required String title,
+    required String id, 
+    required String title
   }) => Navigator.push(
     context,
     MaterialPageRoute<void>(
       builder: (context) => UpdateTripPage(
-        title: title,
         id: id,
+        title: title,
       ),
     ),
   );
