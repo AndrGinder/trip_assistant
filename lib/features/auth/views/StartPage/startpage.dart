@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trip_assistant/common/styles/styles.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
+import 'package:trip_assistant/common/widgets/theme_switch.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({super.key, required this.title});
@@ -18,6 +19,9 @@ class _StartPageState extends State<StartPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [
+          ThemeSwitch(),
+        ],
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(

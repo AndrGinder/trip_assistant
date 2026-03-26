@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trip_assistant/common/widgets/logout.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
 import 'package:trip_assistant/common/styles/styles.dart';
+import 'package:trip_assistant/common/widgets/theme_switch.dart';
 import 'package:trip_assistant/features/auth/services/auth_service.dart';
 import 'package:trip_assistant/features/trip/controllers/trip_controller.dart';
 import 'package:trip_assistant/features/trip/models/trip.dart';
@@ -35,7 +36,10 @@ class _AddTripPageState extends State<AddTripPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-        actions: const [LogoutButton()],
+        actions: [
+          LogoutButton(),
+          ThemeSwitch(),
+        ],
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(

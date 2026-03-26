@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:trip_assistant/common/styles/styles.dart';
+import 'package:trip_assistant/common/widgets/logout.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
+import 'package:trip_assistant/common/widgets/theme_switch.dart';
 
 class SubmitTripItemPage extends StatefulWidget {
   final String id;
@@ -26,6 +28,10 @@ class _SubmitTripItemPageState extends State<SubmitTripItemPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.name),
+        actions: [
+          LogoutButton(),
+          ThemeSwitch(),
+        ],
       ),
       body: Center(
         child: Column(

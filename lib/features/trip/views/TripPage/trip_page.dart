@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:trip_assistant/common/widgets/logout.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
+import 'package:trip_assistant/common/widgets/theme_switch.dart';
 import 'package:trip_assistant/features/trip/controllers/trip_item_controller.dart';
 import 'package:trip_assistant/features/trip/models/trip_item.dart';
 import 'package:trip_assistant/features/trip/views/TripPage/trip_item_card.dart';
@@ -39,6 +41,10 @@ class _TripPageState extends State<TripPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [
+          LogoutButton(),
+          ThemeSwitch(),
+        ],
       ),
       body: Stack(
         children: [

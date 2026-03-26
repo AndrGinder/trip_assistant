@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:trip_assistant/common/styles/styles.dart';
 import 'package:trip_assistant/common/widgets/navigation.dart';
+import 'package:trip_assistant/common/widgets/theme_switch.dart';
 import 'package:trip_assistant/features/auth/services/auth_service.dart';
 import 'package:trip_assistant/utils/constants/form.dart';
 
@@ -25,6 +26,9 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [
+          ThemeSwitch(),
+        ],
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(
